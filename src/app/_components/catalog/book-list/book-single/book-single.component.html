@@ -1,0 +1,41 @@
+<div class="card-group">
+  <div class="card mb-3" style="max-width: 18rem;">
+    <div class="row card-header bg-transparent">
+      <div style="width: 220px;" class="wrap">{{ book.name }}</div>
+      <div>
+        <span class="badge badge-pill badge-primary float-right">{{
+          book.releaseYear
+        }}</span>
+      </div>
+    </div>
+
+    <span class="badge badge-pill badge-info float-right">{{
+      book.genre
+    }}</span>
+    <div class="card-body">
+      <img
+        [src]="book.image"
+        alt="{{ book.name }}"
+        class="img-responsive"
+        style="
+          max-height: 170px;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          width: 50%;
+        "
+      />
+    </div>
+    <div class="card-footer bg-transparent">
+      <label class="card-text">
+        Price : {{ book.amount | currency: "INR":true }}/- </label
+      ><br />
+      <label class="card-text">Writer : {{ book.writer }}</label
+      ><br />
+      <label class="card-text">Quantity : {{ book.quantity }}</label>
+    </div>
+    <div class="card-footer bg-transparent text-center">
+      <a href="#" class="btn btn-primary col-md-12">Add to Cart</a>
+    </div>
+  </div>
+</div>

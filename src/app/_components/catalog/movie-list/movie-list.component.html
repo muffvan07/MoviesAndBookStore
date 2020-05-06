@@ -1,0 +1,14 @@
+<!-- <div class="row">
+  <div>
+    <button class="btn btn-success">New Movie</button>
+  </div>
+</div> -->
+<hr />
+<div class="row">
+  <app-movie-single
+    *ngFor="let movieSingle of movies; let i = index"
+    [movie]="movieSingle"
+    [index]="i"
+  >
+  </app-movie-single>
+</div>

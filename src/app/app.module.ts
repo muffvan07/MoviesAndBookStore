@@ -1,18 +1,62 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
+import { HeaderComponent } from "./_components/header/header.component";
+import { LoginComponent } from "./_components/login/login.component";
+import { AlertComponent } from "./_components/alert/alert.component";
+import { AlertService } from "./_services/alert.service";
+import { AuthenticationService } from "./_services/auth.service";
+import { UserService } from "./_services/user.service";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { RegisterComponent } from "./_components/register/register.component";
+import { JwtInterceptor } from "./_helpers/jwt.interceptors";
+import { ErrorInterceptor } from "./_helpers/error.interceptor";
+import { fakeBackendProvider } from "./_helpers/fake-backend";
+import { CatalogComponent } from "./_components/catalog/catalog.component";
+import { CustomersComponent } from "./_components/customers/customers.component";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { MoviesService } from "./_services/movies.service";
+import { MovieListComponent } from "./_components/catalog/movie-list/movie-list.component";
+import { BookListComponent } from "./_components/catalog/book-list/book-list.component";
+import { MovieSingleComponent } from "./_components/catalog/movie-list/movie-single/movie-single.component";
+import { BookSingleComponent } from "./_components/catalog/book-list/book-single/book-single.component";
+import { BooksService } from "./_services/books.service";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    LoginComponent,
+    AlertComponent,
+    RegisterComponent,
+    CatalogComponent,
+    CustomersComponent,
+    MovieListComponent,
+    BookListComponent,
+    MovieSingleComponent,
+    BookSingleComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    NgbModule,
+    FormsModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    AlertService,
+    AuthenticationService,
+    UserService,
+    MoviesService,
+    BooksService,
+    fakeBackendProvider,
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

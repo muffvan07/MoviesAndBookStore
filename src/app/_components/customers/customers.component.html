@@ -1,0 +1,27 @@
+<h1>Hi {{ currentUser.firstName }}!</h1>
+<p>You're logged in with Movies and Book Store!!</p>
+<h3>All Registered Customers:</h3>
+<br />
+<table class="table table-hover table-bordered">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">User Name</th>
+      <th>Full Name</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <th scope="row">{{ user.username }}</th>
+      <td>{{ user.firstName }} {{ user.lastName }}</td>
+      <td>
+        <a
+          class="text-danger"
+          style="cursor: pointer;"
+          (click)="deleteUser(user.id)"
+          >Delete</a
+        >
+      </td>
+    </tr>
+  </tbody>
+</table>
