@@ -6,22 +6,35 @@
   <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/catalog">Catalog</a>
+        <a class="nav-link" routerLink="/catalog"
+          ><fa-icon [icon]="['fas', 'book-open']"></fa-icon> Catalog</a
+        >
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/customers">Customers</a>
+        <a class="nav-link" routerLink="/customers"
+          ><fa-icon [icon]="['fas', 'users']"></fa-icon> Customers</a
+        >
       </li>
     </ul>
     <ul class="navbar-nav navbar-right">
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link fas fa-shopping-cart"
+          ><fa-icon [icon]="['fas', 'shopping-cart']"></fa-icon> Cart</a
+        >
+      </li>
       <div ngbDropdown class="d-inline-block" style="cursor: pointer;">
         <a class="nav-link" id="dropdownBasic1" ngbDropdownToggle>
           Hii, {{ currentUser.firstName }}
         </a>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <a style="cursor: pointer;" ngbDropdownItem>Cart</a>
-          <a style="cursor: pointer;" ngbDropdownItem>Wishlist</a>
+          <a style="cursor: pointer;" ngbDropdownItem
+            ><fa-icon [icon]="['fas', 'shopping-bag']"></fa-icon> My Orders</a
+          >
+          <a style="cursor: pointer;" ngbDropdownItem
+            ><fa-icon [icon]="['fas', 'star']"></fa-icon> My Wishlist</a
+          >
           <a style="cursor: pointer;" (click)="logout()" ngbDropdownItem
-            >Logout</a
+            ><fa-icon [icon]="['fas', 'arrow-circle-left']"></fa-icon> Logout</a
           >
         </div>
       </div>

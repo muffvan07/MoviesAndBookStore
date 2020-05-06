@@ -24,6 +24,20 @@ import { BookListComponent } from "./_components/catalog/book-list/book-list.com
 import { MovieSingleComponent } from "./_components/catalog/movie-list/movie-single/movie-single.component";
 import { BookSingleComponent } from "./_components/catalog/book-list/book-single/book-single.component";
 import { BooksService } from "./_services/books.service";
+import {
+  FontAwesomeModule,
+  FaIconLibrary,
+} from "@fortawesome/angular-fontawesome";
+import {
+  faShoppingCart as fasShoppingCart,
+  faUsers as fasUsers,
+  faVideo as fasVideo,
+  faBook as fasBook,
+  faShoppingBag as fasShoppingBag,
+  faStar as fasStar,
+  faArrowCircleLeft as fasArrowCircleLeft,
+  faBookOpen as fasBookOpen,
+} from "@fortawesome/free-solid-svg-icons";
 
 @NgModule({
   declarations: [
@@ -46,6 +60,7 @@ import { BooksService } from "./_services/books.service";
     HttpClientModule,
     NgbModule,
     FormsModule,
+    FontAwesomeModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
@@ -59,4 +74,17 @@ import { BooksService } from "./_services/books.service";
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private library: FaIconLibrary) {
+    library.addIcons(
+      fasShoppingCart,
+      fasUsers,
+      fasVideo,
+      fasBook,
+      fasShoppingBag,
+      fasStar,
+      fasArrowCircleLeft,
+      fasBookOpen
+    );
+  }
+}
