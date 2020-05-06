@@ -31,12 +31,14 @@ import {
 import {
   faShoppingCart as fasShoppingCart,
   faUsers as fasUsers,
-  faVideo as fasVideo,
+  faFilm,
   faBook as fasBook,
   faShoppingBag as fasShoppingBag,
   faStar as fasStar,
   faArrowCircleLeft as fasArrowCircleLeft,
   faBookOpen as fasBookOpen,
+  faInfoCircle,
+  faInfo,
 } from "@fortawesome/free-solid-svg-icons";
 
 @NgModule({
@@ -79,12 +81,14 @@ export class AppModule {
     library.addIcons(
       fasShoppingCart,
       fasUsers,
-      fasVideo,
+      faFilm,
       fasBook,
       fasShoppingBag,
       fasStar,
       fasArrowCircleLeft,
-      fasBookOpen
+      fasBookOpen,
+      faInfoCircle,
+      faInfo
     );
   }
 }

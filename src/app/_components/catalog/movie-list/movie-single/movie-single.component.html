@@ -8,7 +8,7 @@
         }}</span>
       </div>
     </div>
-    <span class="badge badge-pill badge-info float-right">{{
+    <span class="badge badge-pill badge-success float-right">{{
       movie.genre
     }}</span>
     <div class="card-body">
@@ -33,9 +33,12 @@
       ><br />
       <label class="card-text">Quantity : {{ movie.quantity }}</label>
     </div>
-    <div class="card-footer bg-transparent text-center">
-      <a href="#" class="btn btn-primary col-md-12"
+    <div class="row card-footer bg-transparent">
+      <a href="#" class="btn btn-primary"
         ><fa-icon [icon]="['fas', 'shopping-cart']"></fa-icon> Add to Cart</a
+      >
+      <a href="#" class="btn btn-primary col-md-6"
+        ><fa-icon [icon]="['fas', 'info']"></fa-icon> Details</a
       >
     </div>
   </div>
