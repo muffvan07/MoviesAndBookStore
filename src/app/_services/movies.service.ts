@@ -1,6 +1,7 @@
 import { Movie } from "../_models/movie";
 import { Cast } from "../_models/cast";
 import { Injectable } from "@angular/core";
+import { CartService } from "./cart.service";
 
 @Injectable()
 export class MoviesService {
@@ -14,7 +15,7 @@ export class MoviesService {
       15,
       "Amazing Movie",
       "https://www.youtube.com/watch?v=EDGYVFZxsXQ",
-      3,
+      3.0,
       "Brad Bird",
       [
         new Cast("Tom Cruise", "Ethen Hunt"),
@@ -76,7 +77,28 @@ export class MoviesService {
         new Cast("Gary Oldman", "Gordon"),
       ]
     ),
+    new Movie(
+      "The Dark Knight",
+      2008,
+      " Action, Crime, Drama",
+      699,
+      "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_QL50_SY1000_CR0,0,675,1000_AL_.jpg",
+      24,
+      "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
+      "https://www.youtube.com/watch?v=EXeTwQWrcwY",
+      9.0,
+      "Christopher Nolan",
+      [
+        new Cast("Christian Bale", "Bruce Wayne"),
+        new Cast("Heath Ledger", "Joker"),
+        new Cast("Aaron Eckhart", "Harvey Dent"),
+        new Cast("Michael Caine", "Alfred"),
+        new Cast("Gary Oldman", "Gordon"),
+      ]
+    ),
   ];
+
+  constructor(private cartService: CartService) {}
 
   getMovies() {
     return this.movies.slice();

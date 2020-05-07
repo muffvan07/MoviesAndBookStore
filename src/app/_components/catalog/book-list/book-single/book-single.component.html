@@ -35,7 +35,7 @@
       <label class="card-text">Quantity : {{ book.quantity }}</label>
     </div>
     <div class="row card-footer bg-transparent">
-      <a href="#" class="btn btn-primary"
+      <a class="btn btn-primary" routerLink="/cart" (click)="addToCart(book)"
         ><fa-icon [icon]="['fas', 'shopping-cart']"></fa-icon> Add to Cart</a
       >
       <a href="#" class="btn btn-primary col-md-6"

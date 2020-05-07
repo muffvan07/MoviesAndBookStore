@@ -9,6 +9,8 @@ import { MoviesService } from "src/app/_services/movies.service";
 })
 export class MovieListComponent implements OnInit, OnDestroy {
   movies: Movie[];
+  page = 1;
+  pageSize = 4;
 
   constructor(private moviesService: MoviesService) {}
 

@@ -32,14 +32,19 @@ import {
   faShoppingCart as fasShoppingCart,
   faUsers as fasUsers,
   faFilm,
-  faBook as fasBook,
-  faShoppingBag as fasShoppingBag,
-  faStar as fasStar,
-  faArrowCircleLeft as fasArrowCircleLeft,
-  faBookOpen as fasBookOpen,
+  faBook,
+  faShoppingBag,
+  faStar,
+  faArrowCircleLeft,
+  faBookOpen,
   faInfoCircle,
   faInfo,
+  faTrash,
+  faCaretRight,
+  faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
+import { CartComponent } from "./_components/cart/cart.component";
+import { CartService } from "./_services/cart.service";
 
 @NgModule({
   declarations: [
@@ -54,6 +59,7 @@ import {
     BookListComponent,
     MovieSingleComponent,
     BookSingleComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,6 +78,7 @@ import {
     UserService,
     MoviesService,
     BooksService,
+    CartService,
     fakeBackendProvider,
   ],
   bootstrap: [AppComponent],
@@ -82,13 +89,16 @@ export class AppModule {
       fasShoppingCart,
       fasUsers,
       faFilm,
-      fasBook,
-      fasShoppingBag,
-      fasStar,
-      fasArrowCircleLeft,
-      fasBookOpen,
+      faBook,
+      faShoppingBag,
+      faStar,
+      faArrowCircleLeft,
+      faBookOpen,
       faInfoCircle,
-      faInfo
+      faInfo,
+      faTrash,
+      faCaretRight,
+      faArrowLeft
     );
   }
 }

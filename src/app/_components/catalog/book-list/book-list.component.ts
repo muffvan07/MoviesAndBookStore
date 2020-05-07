@@ -9,6 +9,8 @@ import { BooksService } from "src/app/_services/books.service";
 })
 export class BookListComponent implements OnInit, OnDestroy {
   books: Book[];
+  page = 1;
+  pageSize = 4;
 
   constructor(private booksService: BooksService) {}
 

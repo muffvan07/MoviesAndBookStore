@@ -5,6 +5,7 @@ import { LoginComponent } from "./_components/login/login.component";
 import { RegisterComponent } from "./_components/register/register.component";
 import { CustomersComponent } from "./_components/customers/customers.component";
 import { CatalogComponent } from "./_components/catalog/catalog.component";
+import { CartComponent } from "./_components/cart/cart.component";
 
 const routes: Routes = [
   {
@@ -24,6 +25,11 @@ const routes: Routes = [
   {
     path: "customers",
     component: CustomersComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "cart",
+    component: CartComponent,
     canActivate: [AuthGuard],
   },
   { path: "**", redirectTo: "" },

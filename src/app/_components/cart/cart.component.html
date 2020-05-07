@@ -1,0 +1,136 @@
+<!-- <table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let movie of movies; let i = index">
+    <tr>
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ movie.name }}</td>
+      <td>{{ movie.amount }}</td>
+    </tr>
+  </tbody>
+</table> -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Image</th>
+              <th scope="col">Product</th>
+              <th scope="col">Available</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Price</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody
+            *ngFor="
+              let movie of movies
+                | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize;
+              let i = index
+            "
+          >
+            <tr>
+              <td>
+                <img
+                  [src]="movie.image"
+                  style="
+                    max-height: 170px;
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                  "
+                />
+              </td>
+              <td class="text-left">
+                <h5>{{ movie.name }}</h5>
+                <br />
+                Director : {{ movie.director }} <br />
+                Release Year : {{ movie.releaseYear }} <br />
+                Rating : <ngb-rating [rate]="movie.rating"></ngb-rating>
+                <br />Stock :
+                {{ movie.quantity }}
+              </td>
+              <td>In stock</td>
+              <td>
+                <input
+                  type="number"
+                  class="form-control col-md-4"
+                  style="margin: auto;"
+                  min="1"
+                  [value]="movie.quantity"
+                />
+              </td>
+              <td>
+                {{ movie.amount | currency: "INR":true }}
+              </td>
+              <td class="text-center">
+                <button class="btn btn-danger">
+                  <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>Sub-Total</td>
+              <td class="text-right">255,90 €</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>Shipping</td>
+              <td class="text-right">6,90 €</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><strong>Total</strong></td>
+              <td class="text-right"><strong>346,90 €</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col mb-2">
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <button class="btn btn-primary" routerLink="/catalog">
+            <fa-icon [icon]="['fas', 'arrow-left']"> </fa-icon> Continue
+            Shopping
+          </button>
+        </div>
+        <div class="col-sm-12 col-md-6 text-right">
+          <button class="btn btn-success text-uppercase">
+            Checkout <fa-icon [icon]="['fas', 'caret-right']"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ngb-pagination
+  [collectionSize]="70"
+  [(page)]="page"
+  [boundaryLinks]="true"
+  aria-label="Default pagination"
+  class="d-flex justify-content-center"
+></ngb-pagination>
+<br />
+<br />
