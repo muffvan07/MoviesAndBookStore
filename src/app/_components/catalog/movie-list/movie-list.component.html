@@ -1,11 +1,7 @@
 <hr />
 <div class="row">
   <app-movie-single
-    *ngFor="
-      let movieSingle of movies
-        | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize;
-      let i = index
-    "
+    *ngFor="let movieSingle of movies | async | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize;; let i = index"
     [movie]="movieSingle"
     [index]="i"
   >

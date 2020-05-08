@@ -42,9 +42,13 @@ import {
   faTrash,
   faCaretRight,
   faArrowLeft,
+  faMinus,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { CartComponent } from "./_components/cart/cart.component";
 import { CartService } from "./_services/cart.service";
+import { WishlistComponent } from "./_components/wishlist/wishlist.component";
+import { CatalogDetailsComponent } from "./_components/catalog/catalog-details/catalog-details.component";
 
 @NgModule({
   declarations: [
@@ -60,6 +64,8 @@ import { CartService } from "./_services/cart.service";
     MovieSingleComponent,
     BookSingleComponent,
     CartComponent,
+    WishlistComponent,
+    CatalogDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -98,7 +104,9 @@ export class AppModule {
       faInfo,
       faTrash,
       faCaretRight,
-      faArrowLeft
+      faArrowLeft,
+      faMinus,
+      faPlus
     );
   }
 }

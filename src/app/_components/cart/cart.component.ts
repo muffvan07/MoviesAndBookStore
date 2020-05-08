@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { Subscription } from "rxjs";
 import { Movie } from "src/app/_models/movie";
 import { CartService } from "src/app/_services/cart.service";
 import { NgbRatingConfig } from "@ng-bootstrap/ng-bootstrap";
@@ -13,6 +12,8 @@ export class CartComponent implements OnInit {
   movies: Movie[];
   page = 1;
   pageSize = 2;
+  cartCount = 1;
+  id: number;
 
   constructor(
     private cartService: CartService,

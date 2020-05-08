@@ -1,0 +1,185 @@
+<section class="mb-5">
+  <div class="row" *ngIf="movie | async as movie">
+    <div class="col-md-6 mb-4 mb-md-0">
+      <div id="mdb-lightbox-ui"></div>
+
+      <div class="mdb-lightbox">
+        <div class="row product-gallery mx-1">
+          <div class="col-12 mb-0">
+            <img
+              [src]="movie.image"
+              class="img-fluid z-depth-1"
+              style="
+                max-height: 600px;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+              "
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="">{{ movie.name }}</h3>
+      <p class="mb-2 text-muted text-uppercase small">Movie</p>
+
+      <p>
+        <span class="mr-1"
+          ><strong>{{ movie.amount | currency: "INR":true }}</strong></span
+        >
+      </p>
+      <p>
+        <em>{{ movie.quantity > 0 ? "In Stock" : "Stock Out" }}</em>
+      </p>
+      <p>
+        <label>Rating : </label>&nbsp;&nbsp;<ngb-rating
+          [rate]="movie.rating"
+        ></ngb-rating>
+      </p>
+
+      <div>
+        <span class="badge badge-pill badge-success">{{ movie.genre }}</span>
+      </div>
+      <br />
+      <div class="table-responsive">
+        <table class="table table-sm table-borderless mb-0">
+          <tbody>
+            <tr>
+              <th class="pl-0 w-25" scope="row"><strong>Director </strong></th>
+              <td>{{ movie.director }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <hr />
+      <p class="pt-1">
+        {{ movie.description }}
+      </p>
+      <div class="table-responsive mb-2">
+        <table class="table table-sm table-borderless">
+          <tbody>
+            <tr>
+              <td class="pl-0 pb-0 w-25">Quantity</td>
+            </tr>
+            <tr>
+              <td class="pl-0">
+                <div class="def-number-input number-input safari_only mb-0">
+                  <input
+                    class="quantity form-control col-md-3"
+                    min="0"
+                    name="quantity"
+                    value="1"
+                    type="number"
+                  />
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <button
+        type="button"
+        class="btn btn-primary btn-md mr-1 mb-2"
+        routerLink="/catalog"
+      >
+        <fa-icon [icon]="['fas', 'arrow-left']"> </fa-icon> Continue Shopping
+      </button>
+      <button type="button" class="btn btn-warning btn-md mr-1 mb-2">
+        <fa-icon [icon]="['fas', 'star']"> </fa-icon> Add to Wishlist
+      </button>
+      <button type="button" class="btn btn-info btn-md mr-1 mb-2">
+        <fa-icon [icon]="['fas', 'shopping-cart']"> </fa-icon> Add to cart
+      </button>
+    </div>
+  </div>
+</section>
+
+<div
+  class="classic-tabs border rounded px-4 pt-1"
+  *ngIf="movie | async as movie"
+>
+  <ul class="nav tabs-primary nav-justified" id="advancedTab" role="tablist">
+    <li class="nav-item">
+      <a
+        class="nav-link active show"
+        id="description-tab"
+        data-toggle="tab"
+        href="#description"
+        role="tab"
+        aria-controls="description"
+        aria-selected="true"
+        >Description</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        id="info-tab"
+        data-toggle="tab"
+        href="#info"
+        role="tab"
+        aria-controls="info"
+        aria-selected="false"
+        >Information</a
+      >
+    </li>
+  </ul>
+  <div class="tab-content" id="advancedTabContent">
+    <div
+      class="tab-pane fade show active"
+      id="description"
+      role="tabpanel"
+      aria-labelledby="description-tab"
+    >
+      <h5>Movie Description</h5>
+      <p class="small text-muted text-uppercase mb-2">Movie</p>
+      <p>
+        <ngb-rating [rate]="movie.rating"></ngb-rating>
+      </p>
+      <h6>{{ movie.amount | currency: "INR":true }}</h6>
+      <p class="pt-1">
+        {{ movie.description }}
+      </p>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="info"
+      role="tabpanel"
+      aria-labelledby="info-tab"
+    >
+      <h5>Additional Information</h5>
+      <table class="table table-bordered mt-3">
+        <thead>
+          <tr>
+            <th scope="row" class="w-150 dark-grey-text h6">Trailer</th>
+            <td>
+              <em
+                ><a [href]="movie.trailer">{{ movie.trailer }}</a></em
+              >
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row" class="w-150 dark-grey-text h6">Release Year</th>
+            <td>
+              <em>{{ movie.releaseYear }}</em>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" class="w-150 dark-grey-text h6">
+              Available in Stock
+            </th>
+            <td>
+              <em>{{ movie.quantity }}</em>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<br />
+<br />

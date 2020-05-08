@@ -1,6 +1,7 @@
 import { Cast } from "./cast";
 
 export class Movie {
+  public id: number;
   public name: string;
   public releaseYear: number;
   public genre: string;
@@ -14,6 +15,7 @@ export class Movie {
   public cast: Cast[];
 
   constructor(
+    id: number,
     name: string,
     releaseYear: number,
     genre: string,
@@ -26,6 +28,7 @@ export class Movie {
     director: string,
     cast: Cast[]
   ) {
+    this.id = id;
     this.name = name;
     this.releaseYear = releaseYear;
     this.genre = genre;

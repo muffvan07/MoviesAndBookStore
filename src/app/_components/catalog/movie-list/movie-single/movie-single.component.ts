@@ -13,11 +13,17 @@ export class MovieSingleComponent implements OnInit {
   @Input() movie: Movie;
   @Input() index: number;
 
-  constructor(private cartService: CartService) {}
+  constructor(
+    private cartService: CartService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {}
 
   addToCart(item) {
+    var cart = {};
     this.cartService.addToCart(item);
+    localStorage.setItem("cart", JSON.stringify(cart));
   }
 }

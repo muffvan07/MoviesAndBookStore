@@ -24,7 +24,7 @@
             <tr>
               <th scope="col">Image</th>
               <th scope="col">Product</th>
-              <th scope="col">Available</th>
+              <th scope="col">Availability</th>
               <th scope="col">Quantity</th>
               <th scope="col">Price</th>
               <th>Action</th>
@@ -55,17 +55,18 @@
                 Director : {{ movie.director }} <br />
                 Release Year : {{ movie.releaseYear }} <br />
                 Rating : <ngb-rating [rate]="movie.rating"></ngb-rating>
-                <br />Stock :
-                {{ movie.quantity }}
+                <br />Stock : {{ movie.quantity }}
               </td>
-              <td>In stock</td>
               <td>
+                {{ movie.quantity > 0 ? "In Stock" : "Stock Out" }}
+              </td>
+              <td class="row">
                 <input
                   type="number"
-                  class="form-control col-md-4"
+                  class="form-control col-md-3"
                   style="margin: auto;"
-                  min="1"
-                  [value]="movie.quantity"
+                  [value]="cartCount"
+                  pattern="^[1-9]+[0-9]*$"
                 />
               </td>
               <td>
@@ -85,7 +86,7 @@
               <td></td>
               <td></td>
               <td>Sub-Total</td>
-              <td class="text-right">255,90 €</td>
+              <td class="text-right">2599</td>
             </tr>
             <tr>
               <td></td>
