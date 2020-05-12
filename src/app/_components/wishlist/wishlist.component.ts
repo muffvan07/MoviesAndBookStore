@@ -16,6 +16,7 @@ export class WishlistComponent implements OnInit {
   cartCount: number = 1;
   itemAmount: number = 4;
   id: number;
+  editedItemIndex: number;
 
   constructor(
     private wishlistService: WishlistService,
@@ -32,5 +33,9 @@ export class WishlistComponent implements OnInit {
 
   addToCart(item) {
     this.cartService.addToCart(item);
+  }
+
+  onDelete(i) {
+    this.wishlistService.deleteProduct(i);
   }
 }

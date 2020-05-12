@@ -51,6 +51,7 @@ import { WishlistComponent } from "./_components/wishlist/wishlist.component";
 import { CatalogDetailsComponent } from "./_components/catalog/catalog-details/catalog-details.component";
 import { SafeUrlPipe } from "./_guards/safe-url.pipe";
 import { WishlistService } from "./_services/wishlist.service";
+import { CheckoutComponent } from './_components/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { WishlistService } from "./_services/wishlist.service";
     WishlistComponent,
     CatalogDetailsComponent,
     SafeUrlPipe,
+    CheckoutComponent,
   ],
   imports: [
     BrowserModule,

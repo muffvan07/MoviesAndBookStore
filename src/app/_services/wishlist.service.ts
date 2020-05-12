@@ -2,8 +2,6 @@ import { Subject } from "rxjs";
 import { Movie } from "../_models/movie";
 
 export class WishlistService {
-  moviesChanged = new Subject<Movie[]>();
-
   private movies: Movie[] = [
     new Movie(
       1,
@@ -32,5 +30,9 @@ export class WishlistService {
 
   getItems() {
     return this.movies;
+  }
+
+  deleteProduct(index: number) {
+    this.movies.splice(index, 1);
   }
 }

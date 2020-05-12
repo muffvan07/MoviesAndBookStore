@@ -2,8 +2,6 @@ import { Movie } from "../_models/movie";
 import { Subject } from "rxjs";
 
 export class CartService {
-  moviesChanged = new Subject<Movie[]>();
-
   private movies: Movie[] = [
     new Movie(
       1,
@@ -28,5 +26,13 @@ export class CartService {
 
   getItems() {
     return this.movies;
+  }
+
+  getItem(index: number) {
+    return this.movies[index];
+  }
+
+  deleteProduct(index: number) {
+    this.movies.splice(index, 1);
   }
 }

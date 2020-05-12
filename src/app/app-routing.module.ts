@@ -9,6 +9,7 @@ import { CartComponent } from "./_components/cart/cart.component";
 import { WishlistComponent } from "./_components/wishlist/wishlist.component";
 import { CatalogDetailsComponent } from "./_components/catalog/catalog-details/catalog-details.component";
 import { MovieListComponent } from "./_components/catalog/movie-list/movie-list.component";
+import { CheckoutComponent } from "./_components/checkout/checkout.component";
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -50,6 +51,11 @@ const routes: Routes = [
   {
     path: "wishlist",
     component: WishlistComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "checkout",
+    component: CheckoutComponent,
     canActivate: [AuthGuard],
   },
   { path: "**", redirectTo: "" },

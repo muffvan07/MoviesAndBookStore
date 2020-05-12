@@ -61,7 +61,11 @@
           >
             <fa-icon [icon]="['fas', 'info']"></fa-icon> Details
           </button>
-          <button type="button" class="btn btn-danger col-md-2">
+          <button
+            type="button"
+            class="btn btn-danger col-md-2"
+            (click)="onDelete(i)"
+          >
             <fa-icon [icon]="['fas', 'trash']"></fa-icon>
           </button>
         </div>

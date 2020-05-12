@@ -71,7 +71,7 @@
                 {{ movie.amount * cartCount | currency: "INR":true }}
               </td>
               <td class="text-center">
-                <button class="btn btn-danger">
+                <button class="btn btn-danger" (click)="onDelete(i)">
                   <fa-icon [icon]="['fas', 'trash']"></fa-icon>
                 </button>
               </td>
@@ -112,121 +112,8 @@
     <div class="col mb-2">
       <div class="row">
         <div class="col-sm-12 col-md-12 text-right">
-          <button class="btn btn-success text-uppercase">
-            Place Order <fa-icon [icon]="['fas', 'caret-right']"></fa-icon>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="container" *ngIf="!typeMovie">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="table-responsive">
-        <table class="table">
-          <thead class="thead-light">
-            <tr>
-              <th scope="col">Image</th>
-              <th scope="col">Product</th>
-              <th scope="col">Availability</th>
-              <th scope="col">Quantity</th>
-              <th scope="col">Price</th>
-              <th scope="col">Total</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody
-            *ngFor="
-              let book of books
-                | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize;
-              let i = index
-            "
-          >
-            <tr>
-              <td>
-                <img
-                  [src]="book.image"
-                  style="
-                    max-height: 170px;
-                    display: block;
-                    margin-left: auto;
-                    margin-right: auto;
-                  "
-                />
-              </td>
-              <td class="text-left">
-                <h5>{{ book.name }}</h5>
-                <br />
-                Director : {{ book.writer }} <br />
-                Release Year : {{ book.releaseYear }} <br />
-                Good Reads Rating :
-                <ngb-rating [rate]="book.goodreadsRatings"></ngb-rating>
-                <br />Stock : {{ book.quantity - cartCount }}
-              </td>
-              <td>
-                {{ book.quantity > 0 ? "In Stock" : "Stock Out" }}
-              </td>
-              <td class="row">
-                <input
-                  type="number"
-                  class="form-control col-md-4"
-                  style="margin: auto;"
-                  [(ngModel)]="cartCount"
-                  min="1"
-                />
-              </td>
-              <td>
-                {{ book.amount | currency: "INR":true }}
-              </td>
-              <td>
-                {{ book.amount * cartCount | currency: "INR":true }}
-              </td>
-              <td class="text-center">
-                <button class="btn btn-danger">
-                  <fa-icon [icon]="['fas', 'trash']"></fa-icon>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>Sub-Total</td>
-              <td class="text-right">555 €</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>Shipping</td>
-              <td class="text-right">6,90 €</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><strong>Total</strong></td>
-              <td class="text-right"><strong>346,90 €</strong></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="col mb-2">
-      <div class="row">
-        <div class="col-sm-12 col-md-12 text-right">
-          <button class="btn btn-success text-uppercase">
-            Place Order <fa-icon [icon]="['fas', 'caret-right']"></fa-icon>
+          <button class="btn btn-success text-uppercase" routerLink="/checkout">
+            Checkout <fa-icon [icon]="['fas', 'caret-right']"></fa-icon>
           </button>
         </div>
       </div>
