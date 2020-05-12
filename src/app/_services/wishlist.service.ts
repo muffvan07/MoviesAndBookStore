@@ -1,7 +1,7 @@
-import { Movie } from "../_models/movie";
 import { Subject } from "rxjs";
+import { Movie } from "../_models/movie";
 
-export class CartService {
+export class WishlistService {
   moviesChanged = new Subject<Movie[]>();
 
   private movies: Movie[] = [
@@ -21,6 +21,10 @@ export class CartService {
       "Tom Cruise,Paula Patton,Simon Pegg"
     ),
   ];
+
+  addToWishlist(item) {
+    this.movies.push(item);
+  }
 
   addToCart(item) {
     this.movies.push(item);

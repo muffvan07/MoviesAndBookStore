@@ -1,8 +1,14 @@
 import { Book } from "../_models/book";
+import { Observable, of } from "rxjs";
+import { map } from "rxjs/operators";
+import { Injectable } from "@angular/core";
 
+@Injectable()
 export class BooksService {
   private books: Book[] = [
     new Book(
+      1,
+      "Book",
       "The Adventures of Sherlock Holmes",
       1892,
       "Mystery, Thriller",
@@ -16,6 +22,8 @@ export class BooksService {
       236
     ),
     new Book(
+      2,
+      "Book",
       "Treasure Island",
       1883,
       "Action, Adventure",
@@ -29,6 +37,8 @@ export class BooksService {
       194
     ),
     new Book(
+      3,
+      "Book",
       "Alice in Wonderland",
       1865,
       "Fantasy",
@@ -42,6 +52,8 @@ export class BooksService {
       78
     ),
     new Book(
+      4,
+      "Book",
       "The Handmaid's Tale",
       1998,
       "Mystery",
@@ -56,11 +68,13 @@ export class BooksService {
     ),
   ];
 
-  getBooks() {
-    return this.books.slice();
+  getBooks(): Observable<Book[]> {
+    return of(this.books.slice());
   }
 
-  getBook(index: number) {
-    return this.books.slice()[index];
+  getBook(index: number | string) {
+    return this.getBooks().pipe(
+      map((books: Book[]) => books.find((book) => book.id === +index))
+    );
   }
 }

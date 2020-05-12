@@ -34,13 +34,19 @@
       ><br />
       <label class="card-text">Quantity : {{ book.quantity }}</label>
     </div>
-    <div class="row card-footer bg-transparent">
-      <a class="btn btn-primary" routerLink="/cart" (click)="addToCart(book)"
+    <div class="row card-footer bg-transparent justify-content-around">
+      <a class="btn btn-info" routerLink="/cart" (click)="addToCart(book)"
         ><fa-icon [icon]="['fas', 'shopping-cart']"></fa-icon> Add to Cart</a
       >
-      <a href="#" class="btn btn-primary col-md-6"
+      <a href="#" class="btn btn-primary" [routerLink]="['/books', book.id]"
         ><fa-icon [icon]="['fas', 'info']"></fa-icon> Details</a
       >
+      <a
+        class="btn btn-warning"
+        routerLink="/wishlist"
+        (click)="addToWishlist(book)"
+        ><fa-icon [icon]="['fas', 'star']"></fa-icon
+      ></a>
     </div>
   </div>
 </div>

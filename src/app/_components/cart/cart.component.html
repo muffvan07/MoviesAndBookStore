@@ -1,19 +1,13 @@
-<!-- <table class="table">
-  <thead class="thead-light">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-    </tr>
-  </thead>
-  <tbody *ngFor="let movie of movies; let i = index">
-    <tr>
-      <th scope="row">{{ i + 1 }}</th>
-      <td>{{ movie.name }}</td>
-      <td>{{ movie.amount }}</td>
-    </tr>
-  </tbody>
-</table> -->
+<div class="row justify-content-between">
+  <div>
+    <h3><fa-icon [icon]="['fas', 'shopping-cart']"></fa-icon> My Cart</h3>
+  </div>
+  <button class="btn btn-primary" routerLink="/catalog">
+    <fa-icon [icon]="['fas', 'arrow-left']"> </fa-icon> Continue Shopping
+  </button>
+</div>
+
+<hr />
 
 <div class="container">
   <div class="row">
@@ -27,6 +21,7 @@
               <th scope="col">Availability</th>
               <th scope="col">Quantity</th>
               <th scope="col">Price</th>
+              <th scope="col">Total</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -55,7 +50,7 @@
                 Director : {{ movie.director }} <br />
                 Release Year : {{ movie.releaseYear }} <br />
                 Rating : <ngb-rating [rate]="movie.rating"></ngb-rating>
-                <br />Stock : {{ movie.quantity }}
+                <br />Stock : {{ movie.quantity - cartCount }}
               </td>
               <td>
                 {{ movie.quantity > 0 ? "In Stock" : "Stock Out" }}
@@ -63,14 +58,17 @@
               <td class="row">
                 <input
                   type="number"
-                  class="form-control col-md-3"
+                  class="form-control col-md-4"
                   style="margin: auto;"
-                  [value]="cartCount"
-                  pattern="^[1-9]+[0-9]*$"
+                  [(ngModel)]="cartCount"
+                  min="1"
                 />
               </td>
               <td>
                 {{ movie.amount | currency: "INR":true }}
+              </td>
+              <td>
+                {{ movie.amount * cartCount | currency: "INR":true }}
               </td>
               <td class="text-center">
                 <button class="btn btn-danger">
@@ -85,10 +83,12 @@
               <td></td>
               <td></td>
               <td></td>
+              <td></td>
               <td>Sub-Total</td>
-              <td class="text-right">2599</td>
+              <td class="text-right">555 €</td>
             </tr>
             <tr>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -97,6 +97,7 @@
               <td class="text-right">6,90 €</td>
             </tr>
             <tr>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -110,15 +111,122 @@
     </div>
     <div class="col mb-2">
       <div class="row">
-        <div class="col-sm-12 col-md-6">
-          <button class="btn btn-primary" routerLink="/catalog">
-            <fa-icon [icon]="['fas', 'arrow-left']"> </fa-icon> Continue
-            Shopping
+        <div class="col-sm-12 col-md-12 text-right">
+          <button class="btn btn-success text-uppercase">
+            Place Order <fa-icon [icon]="['fas', 'caret-right']"></fa-icon>
           </button>
         </div>
-        <div class="col-sm-12 col-md-6 text-right">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="!typeMovie">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Image</th>
+              <th scope="col">Product</th>
+              <th scope="col">Availability</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Price</th>
+              <th scope="col">Total</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody
+            *ngFor="
+              let book of books
+                | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize;
+              let i = index
+            "
+          >
+            <tr>
+              <td>
+                <img
+                  [src]="book.image"
+                  style="
+                    max-height: 170px;
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                  "
+                />
+              </td>
+              <td class="text-left">
+                <h5>{{ book.name }}</h5>
+                <br />
+                Director : {{ book.writer }} <br />
+                Release Year : {{ book.releaseYear }} <br />
+                Good Reads Rating :
+                <ngb-rating [rate]="book.goodreadsRatings"></ngb-rating>
+                <br />Stock : {{ book.quantity - cartCount }}
+              </td>
+              <td>
+                {{ book.quantity > 0 ? "In Stock" : "Stock Out" }}
+              </td>
+              <td class="row">
+                <input
+                  type="number"
+                  class="form-control col-md-4"
+                  style="margin: auto;"
+                  [(ngModel)]="cartCount"
+                  min="1"
+                />
+              </td>
+              <td>
+                {{ book.amount | currency: "INR":true }}
+              </td>
+              <td>
+                {{ book.amount * cartCount | currency: "INR":true }}
+              </td>
+              <td class="text-center">
+                <button class="btn btn-danger">
+                  <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>Sub-Total</td>
+              <td class="text-right">555 €</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>Shipping</td>
+              <td class="text-right">6,90 €</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><strong>Total</strong></td>
+              <td class="text-right"><strong>346,90 €</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col mb-2">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 text-right">
           <button class="btn btn-success text-uppercase">
-            Checkout <fa-icon [icon]="['fas', 'caret-right']"></fa-icon>
+            Place Order <fa-icon [icon]="['fas', 'caret-right']"></fa-icon>
           </button>
         </div>
       </div>

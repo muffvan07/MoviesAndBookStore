@@ -3,6 +3,7 @@ import { Movie } from "src/app/_models/movie";
 import { MoviesService } from "src/app/_services/movies.service";
 import { ActivatedRoute, Router, Params } from "@angular/router";
 import { CartService } from "src/app/_services/cart.service";
+import { WishlistService } from "src/app/_services/wishlist.service";
 
 @Component({
   selector: "app-movie-single",
@@ -15,6 +16,7 @@ export class MovieSingleComponent implements OnInit {
 
   constructor(
     private cartService: CartService,
+    private wishlistService: WishlistService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -22,8 +24,10 @@ export class MovieSingleComponent implements OnInit {
   ngOnInit(): void {}
 
   addToCart(item) {
-    var cart = {};
     this.cartService.addToCart(item);
-    localStorage.setItem("cart", JSON.stringify(cart));
+  }
+
+  addToWishlist(item) {
+    this.wishlistService.addToWishlist(item);
   }
 }

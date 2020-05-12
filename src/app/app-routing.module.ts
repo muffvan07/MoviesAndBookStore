@@ -25,8 +25,17 @@ const routes: Routes = [
     component: CatalogComponent,
     canActivate: [AuthGuard],
   },
-  { path: "movies/:id", redirectTo: "/catalog/:id" },
-  { path: "catalog/:id", component: CatalogDetailsComponent },
+  { path: "movies/:id", redirectTo: "/catalog/movies/:id" },
+  { path: "books/:id", redirectTo: "/catalog/books/:id" },
+  {
+    path: "catalog/movies/:id",
+    component: CatalogDetailsComponent,
+    data: { type: "Movie" },
+  },
+  {
+    path: "catalog/books/:id",
+    component: CatalogDetailsComponent,
+  },
   {
     path: "customers",
     component: CustomersComponent,
@@ -36,6 +45,7 @@ const routes: Routes = [
     path: "cart",
     component: CartComponent,
     canActivate: [AuthGuard],
+    data: { type: "Movie" },
   },
   {
     path: "wishlist",

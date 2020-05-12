@@ -49,6 +49,8 @@ import { CartComponent } from "./_components/cart/cart.component";
 import { CartService } from "./_services/cart.service";
 import { WishlistComponent } from "./_components/wishlist/wishlist.component";
 import { CatalogDetailsComponent } from "./_components/catalog/catalog-details/catalog-details.component";
+import { SafeUrlPipe } from "./_guards/safe-url.pipe";
+import { WishlistService } from "./_services/wishlist.service";
 
 @NgModule({
   declarations: [
@@ -66,6 +68,7 @@ import { CatalogDetailsComponent } from "./_components/catalog/catalog-details/c
     CartComponent,
     WishlistComponent,
     CatalogDetailsComponent,
+    SafeUrlPipe,
   ],
   imports: [
     BrowserModule,
@@ -85,6 +88,7 @@ import { CatalogDetailsComponent } from "./_components/catalog/catalog-details/c
     MoviesService,
     BooksService,
     CartService,
+    WishlistService,
     fakeBackendProvider,
   ],
   bootstrap: [AppComponent],

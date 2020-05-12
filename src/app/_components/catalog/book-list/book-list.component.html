@@ -8,6 +8,7 @@
   <app-book-single
     *ngFor="
       let bookSingle of books
+        | async
         | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize;
       let i = index
     "

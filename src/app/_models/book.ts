@@ -1,4 +1,6 @@
 export class Book {
+  public id: number;
+  public type: string;
   public name: string;
   public releaseYear: number;
   public genre: string;
@@ -12,6 +14,8 @@ export class Book {
   public pages: number;
 
   constructor(
+    id: number,
+    type: string,
     name: string,
     releaseYear: number,
     genre: string,
@@ -24,6 +28,8 @@ export class Book {
     goodreadsRatings: number,
     pages: number
   ) {
+    this.id = id;
+    this.type = type;
     this.name = name;
     this.releaseYear = releaseYear;
     this.genre = genre;
