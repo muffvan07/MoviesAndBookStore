@@ -1,15 +1,16 @@
 <hr />
 <div class="row">
   <app-movie-single
-    *ngFor="let movieSingle of movies | async | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize;; let i = index"
+    *ngFor="let movieSingle of movies  | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize;; let i = index"
     [movie]="movieSingle"
     [index]="i"
   >
   </app-movie-single>
 </div>
 <ngb-pagination
-  [collectionSize]="70"
+  [collectionSize]="movies.length"
   [(page)]="page"
+  [pageSize]="pageSize"
   [boundaryLinks]="true"
   aria-label="Default pagination"
   class="d-flex justify-content-center"

@@ -1,8 +1,10 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Type } from "@angular/core";
 import { Movie } from "src/app/_models/movie";
 import { WishlistService } from "src/app/_services/wishlist.service";
 import { NgbRatingConfig } from "@ng-bootstrap/ng-bootstrap";
 import { CartService } from "src/app/_services/cart.service";
+import { Wishlist } from "src/app/_models/wishlist";
+import { Cart } from "src/app/_models/cart";
 
 @Component({
   selector: "app-wishlist",
@@ -10,13 +12,10 @@ import { CartService } from "src/app/_services/cart.service";
   styleUrls: ["./wishlist.component.css"],
 })
 export class WishlistComponent implements OnInit {
-  movies: Movie[];
+  wishlistItems: Wishlist[];
+  cartItem: Cart[];
   page = 1;
   pageSize = 4;
-  cartCount: number = 1;
-  itemAmount: number = 4;
-  id: number;
-  editedItemIndex: number;
 
   constructor(
     private wishlistService: WishlistService,
@@ -28,14 +27,47 @@ export class WishlistComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.movies = this.wishlistService.getItems();
+    this.wishlistItems = this.wishlistService.getItems();
   }
 
-  addToCart(item) {
-    this.cartService.addToCart(item);
+  addToCart(item: Movie) {
+    let itemExist = false;
+
+    for (let i in this.cartItem) {
+      if (this.cartItem[i].name === item.name) {
+        this.cartItem[i].quantity++;
+        item.quantity--;
+        itemExist = true;
+        break;
+      }
+    }
+
+    if (!itemExist) {
+      item.quantity--;
+      this.cartService.addToCart({
+        name: item.name,
+        releaseYear: item.releaseYear,
+        genre: item.genre,
+        amount: item.amount,
+        image: item.image,
+        quantity: 1,
+        description: item.description,
+        writer_director: item.director,
+        rating: item.rating,
+        type: item.type,
+      });
+    }
   }
 
   onDelete(i) {
     this.wishlistService.deleteProduct(i);
+  }
+
+  clearWishlistt() {
+    this.wishlistItems = this.wishlistService.clearWishlist();
+  }
+
+  clearWishlist() {
+    this.wishlistItems = this.wishlistService.clearWishlist();
   }
 }

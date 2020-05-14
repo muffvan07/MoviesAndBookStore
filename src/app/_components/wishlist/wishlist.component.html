@@ -3,71 +3,112 @@
   <div>
     <h3><fa-icon [icon]="['fas', 'star']"></fa-icon> My Wishlist</h3>
   </div>
-  <button class="btn btn-primary" routerLink="/catalog">
-    <fa-icon [icon]="['fas', 'arrow-left']"> </fa-icon> Continue Shopping
-  </button>
+  <div>
+    <button class="btn btn-primary" routerLink="/catalog">
+      <fa-icon [icon]="['fas', 'arrow-left']"> </fa-icon> Continue Shopping
+    </button>
+    <button *ngIf="wishlistItems.length === 0" class="btn btn-danger" disabled>
+      <fa-icon [icon]="['fas', 'trash']"> </fa-icon> Clear Wishlist
+    </button>
+    <button
+      *ngIf="wishlistItems.length > 0"
+      class="btn btn-danger"
+      (click)="clearWishlist()"
+    >
+      <fa-icon [icon]="['fas', 'trash']"> </fa-icon> Clear Cart
+    </button>
+  </div>
 </div>
 
 <hr />
+
+<div *ngIf="wishlistItems.length === 0" class="text-center">
+  No items in Wishlist. <br /><br />
+</div>
 
 <section>
   <div
     class="row mb-4"
     *ngFor="
-      let movie of movies
+      let item of wishlistItems
         | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize;
       let i = index
     "
   >
     <div class="col-md-5 col-lg-3 col-xl-3">
       <div class="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
-        <img class="img-fluid w-100" [src]="movie.image" alt="Sample" />
+        <img class="img-fluid w-100" [src]="item.image" alt="Sample" />
       </div>
     </div>
     <div class="col-md-7 col-lg-9 col-xl-9">
       <div class="row">
         <div class="col-lg-7 col-xl-7">
-          <h5>{{ movie.name }}</h5>
-          <p class="mb-2 text-muted text-uppercase small">{{ movie.type }}</p>
+          <h5>{{ item.name }}</h5>
+          <p class="mb-2 text-muted text-uppercase small">{{ item.type }}</p>
           <hr />
-          Director : {{ movie.director }} <br />
-          Release Year : {{ movie.releaseYear }} <br />
-          Rating : <ngb-rating [rate]="movie.rating"></ngb-rating> <br />Stock :
-          {{ movie.quantity - cartCount }}
+          {{ item.type == "Book" ? "Writer" : "Director" }} :
+          {{ item.writer_director }} <br />
+          Release Year : {{ item.releaseYear }} <br />
+          {{ item.type == "Book" ? "Good Read Ratings" : "Rating" }} :
+          <ngb-rating [rate]="item.rating"></ngb-rating> <br />Stock :
+          {{ item.quantity }}
           <hr />
           <p class="mb-lg-0">
-            {{ movie.description }}
+            {{ item.description }}
           </p>
         </div>
         <div class="col-lg-5 col-xl-5">
           <h6 class="mb-3">
-            <span>{{ movie.amount | currency: "INR":true }}</span>
+            <span>{{ item.amount | currency: "INR":true }}</span>
           </h6>
-          Rating : <ngb-rating [rate]="movie.rating"></ngb-rating>
+          Rating : <ngb-rating [rate]="item.rating"></ngb-rating>
           <br />
           <br />
-          <button
-            type="button"
-            class="btn btn-primary col-md-5"
-            (click)="addToCart(movie)"
-            routerLink="/cart"
+          <div
+            class="btn-group btn-group-toggle row card-footer bg-transparent"
+            data-toggle="buttons"
           >
-            <fa-icon [icon]="['fas', 'shopping-cart']"></fa-icon> Add to cart
-          </button>
-          <button
-            type="button"
-            class="btn btn-light col-md-4"
-            [routerLink]="['/movies', movie.id]"
-          >
-            <fa-icon [icon]="['fas', 'info']"></fa-icon> Details
-          </button>
-          <button
-            type="button"
-            class="btn btn-danger col-md-2"
-            (click)="onDelete(i)"
-          >
-            <fa-icon [icon]="['fas', 'trash']"></fa-icon>
-          </button>
+            <label class="btn btn-info" *ngIf="item.quantity != 0">
+              <input
+                type="radio"
+                name="options"
+                id="option1"
+                autocomplete="off"
+                (click)="addToCart(item)"
+              />
+              <fa-icon [icon]="['fas', 'shopping-cart']"></fa-icon> Add to Cart
+            </label>
+            <label class="btn btn-danger" *ngIf="item.quantity == 0">
+              <input
+                type="radio"
+                name="options"
+                id="option2"
+                autocomplete="off"
+                disabled
+              />
+              Sold Out
+            </label>
+            <label class="btn btn-primary">
+              <input
+                type="radio"
+                name="options"
+                id="option3"
+                autocomplete="off"
+                [routerLink]="['/books', item.id]"
+              />
+              <fa-icon [icon]="['fas', 'info']"></fa-icon> Details
+            </label>
+            <label class="btn btn-warning">
+              <input
+                type="radio"
+                name="options"
+                id="option4"
+                autocomplete="off"
+                (click)="onDelete(item)"
+              />
+              <fa-icon [icon]="['fas', 'star']"></fa-icon>
+            </label>
+          </div>
         </div>
       </div>
     </div>
@@ -75,8 +116,9 @@
 </section>
 
 <ngb-pagination
-  [collectionSize]="70"
+  [collectionSize]="wishlistItems.length"
   [(page)]="page"
+  [pageSize]="pageSize"
   [boundaryLinks]="true"
   aria-label="Default pagination"
   class="d-flex justify-content-center"

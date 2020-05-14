@@ -2,14 +2,30 @@
   <div>
     <h3><fa-icon [icon]="['fas', 'shopping-cart']"></fa-icon> My Cart</h3>
   </div>
-  <button class="btn btn-primary" routerLink="/catalog">
-    <fa-icon [icon]="['fas', 'arrow-left']"> </fa-icon> Continue Shopping
-  </button>
+  <div>
+    <button class="btn btn-primary" routerLink="/catalog">
+      <fa-icon [icon]="['fas', 'arrow-left']"> </fa-icon> Continue Shopping
+    </button>
+    <button *ngIf="cartItems.length === 0" class="btn btn-danger" disabled>
+      <fa-icon [icon]="['fas', 'trash']"> </fa-icon> Clear Cart
+    </button>
+    <button
+      *ngIf="cartItems.length > 0"
+      class="btn btn-danger"
+      (click)="clearCart()"
+    >
+      <fa-icon [icon]="['fas', 'trash']"> </fa-icon> Clear Cart
+    </button>
+  </div>
 </div>
 
 <hr />
 
-<div class="container">
+<div *ngIf="cartItems.length === 0" class="text-center">
+  No items in the Cart. <br /><br />
+</div>
+
+<div class="container" *ngIf="cartItems.length > 0">
   <div class="row">
     <div class="col-md-12">
       <div class="table-responsive">
@@ -18,24 +34,25 @@
             <tr>
               <th scope="col">Image</th>
               <th scope="col">Product</th>
-              <th scope="col">Availability</th>
               <th scope="col">Quantity</th>
               <th scope="col">Price</th>
               <th scope="col">Total</th>
               <th>Action</th>
             </tr>
           </thead>
-          <tbody
-            *ngFor="
-              let movie of movies
-                | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize;
-              let i = index
-            "
-          >
-            <tr>
+          <tbody>
+            <tr
+              *ngFor="
+                let item of cartItems
+                  | slice
+                    : (page - 1) * pageSize
+                    : (page - 1) * pageSize + pageSize;
+                let i = index
+              "
+            >
               <td>
                 <img
-                  [src]="movie.image"
+                  [src]="item.image"
                   style="
                     max-height: 170px;
                     display: block;
@@ -45,30 +62,33 @@
                 />
               </td>
               <td class="text-left">
-                <h5>{{ movie.name }}</h5>
+                <h5>{{ item.name }}</h5>
                 <br />
-                Director : {{ movie.director }} <br />
-                Release Year : {{ movie.releaseYear }} <br />
-                Rating : <ngb-rating [rate]="movie.rating"></ngb-rating>
-                <br />Stock : {{ movie.quantity - cartCount }}
+                {{ item.type == "Book" ? "Writer" : "Director" }} :
+                {{ item.writer_director }} <br />
+                Release Year : {{ item.releaseYear }} <br />
+                {{ item.type == "Book" ? "Good Read Rating" : "Rating" }} :
+                <ngb-rating [rate]="item.rating"></ngb-rating>
+              </td>
+
+              <td>
+                <div *ngIf="item.quantity != 0">
+                  <input
+                    type="number"
+                    class="form-control col-md-4"
+                    style="margin: auto;"
+                    [(ngModel)]="item.quantity"
+                  />
+                </div>
+                <div *ngIf="item.quantity == 0">
+                  <span class="badge badge-pill badge-danger">Sold Out</span>
+                </div>
               </td>
               <td>
-                {{ movie.quantity > 0 ? "In Stock" : "Stock Out" }}
-              </td>
-              <td class="row">
-                <input
-                  type="number"
-                  class="form-control col-md-4"
-                  style="margin: auto;"
-                  [(ngModel)]="cartCount"
-                  min="1"
-                />
+                {{ item.amount | currency: "INR":true }}
               </td>
               <td>
-                {{ movie.amount | currency: "INR":true }}
-              </td>
-              <td>
-                {{ movie.amount * cartCount | currency: "INR":true }}
+                {{ item.quantity * item.amount | currency: "INR":true }}
               </td>
               <td class="text-center">
                 <button class="btn btn-danger" (click)="onDelete(i)">
@@ -83,27 +103,30 @@
               <td></td>
               <td></td>
               <td></td>
-              <td></td>
               <td>Sub-Total</td>
-              <td class="text-right">555 €</td>
+              <td class="text-right">
+                {{ cartTotal | currency: "INR":true }}
+              </td>
             </tr>
             <tr>
-              <td></td>
               <td></td>
               <td></td>
               <td></td>
               <td></td>
               <td>Shipping</td>
-              <td class="text-right">6,90 €</td>
+              <td class="text-right">{{ shipping | currency: "INR":true }}</td>
             </tr>
             <tr>
               <td></td>
               <td></td>
               <td></td>
               <td></td>
-              <td></td>
               <td><strong>Total</strong></td>
-              <td class="text-right"><strong>346,90 €</strong></td>
+              <td class="text-right">
+                <strong>{{
+                  cartTotal + shipping | currency: "INR":true
+                }}</strong>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -122,11 +145,13 @@
 </div>
 
 <ngb-pagination
-  [collectionSize]="70"
+  [collectionSize]="cartItems.length"
   [(page)]="page"
+  [pageSize]="pageSize"
   [boundaryLinks]="true"
   aria-label="Default pagination"
   class="d-flex justify-content-center"
 ></ngb-pagination>
+
 <br />
 <br />

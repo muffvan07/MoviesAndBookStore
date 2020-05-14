@@ -9,6 +9,8 @@ import { Book } from "src/app/_models/book";
 import { BooksService } from "src/app/_services/books.service";
 import { CartService } from "src/app/_services/cart.service";
 import { WishlistService } from "src/app/_services/wishlist.service";
+import { Wishlist } from "src/app/_models/wishlist";
+import { Cart } from "src/app/_models/cart";
 
 @Component({
   selector: "app-catalog-details",
@@ -19,6 +21,9 @@ export class CatalogDetailsComponent implements OnInit {
   movie: Observable<Movie>;
   book: Observable<Book>;
   typeMovie: Boolean;
+  wishlistItem: Wishlist[];
+  cartItem: Cart[];
+  addedToWishlist: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,6 +39,9 @@ export class CatalogDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.wishlistItem = this.wishlistService.getItems();
+    this.cartItem = this.cartService.getItems();
+
     this.route.data.subscribe((data) => {
       this.typeMovie = data.type === "Movie";
     });
@@ -51,11 +59,120 @@ export class CatalogDetailsComponent implements OnInit {
     );
   }
 
-  addToCart(item) {
-    this.cartService.addToCart(item);
+  addToCartMovie(item: Movie) {
+    let itemExist = false;
+
+    for (let i in this.cartItem) {
+      if (this.cartItem[i].name === item.name) {
+        this.cartItem[i].quantity++;
+        item.quantity--;
+        itemExist = true;
+        break;
+      }
+    }
+
+    if (!itemExist) {
+      item.quantity--;
+      this.cartService.addToCart({
+        name: item.name,
+        releaseYear: item.releaseYear,
+        genre: item.genre,
+        amount: item.amount,
+        image: item.image,
+        quantity: 1,
+        description: item.description,
+        writer_director: item.director,
+        type: item.type,
+      });
+    }
   }
 
-  addToWishlist(item) {
-    this.wishlistService.addToWishlist(item);
+  addToWishlistMovie(item: Movie) {
+    let itemExist = false;
+
+    for (let i in this.wishlistItem) {
+      if (this.wishlistItem[i].name === item.name) {
+        this.addedToWishlist = true;
+        alert("item Already In Wishlist");
+        itemExist = true;
+        break;
+      }
+    }
+
+    if (!itemExist) {
+      this.wishlistService.addToWishList({
+        id: item.id,
+        name: item.name,
+        releaseYear: item.releaseYear,
+        genre: item.genre,
+        amount: item.amount,
+        image: item.image,
+        quantity: item.quantity,
+        description: item.description,
+        writer_director: item.director,
+        rating: item.rating,
+        type: item.type,
+      });
+      this.addedToWishlist = true;
+    }
+  }
+
+  addToCartBook(item: Book) {
+    let itemExist = false;
+
+    for (let i in this.cartItem) {
+      if (this.cartItem[i].name === item.name) {
+        this.cartItem[i].quantity++;
+        item.quantity--;
+        itemExist = true;
+        break;
+      }
+    }
+
+    if (!itemExist) {
+      item.quantity--;
+      this.cartService.addToCart({
+        name: item.name,
+        releaseYear: item.releaseYear,
+        genre: item.genre,
+        amount: item.amount,
+        image: item.image,
+        quantity: 1,
+        description: item.description,
+        writer_director: item.writer,
+        rating: item.goodreadsRatings,
+        type: item.type,
+      });
+    }
+  }
+
+  addToWishlistBook(item: Book) {
+    let itemExist = false;
+
+    for (let i in this.wishlistItem) {
+      if (this.wishlistItem[i].name === item.name) {
+        this.addedToWishlist = true;
+        alert("item Already In Wishlist");
+        itemExist = true;
+        break;
+      }
+    }
+
+    if (!itemExist) {
+      this.wishlistService.addToWishList({
+        id: item.id,
+        name: item.name,
+        releaseYear: item.releaseYear,
+        genre: item.genre,
+        amount: item.amount,
+        image: item.image,
+        quantity: item.quantity,
+        description: item.description,
+        writer_director: item.writer,
+        rating: item.goodreadsRatings,
+        type: item.type,
+      });
+      this.addedToWishlist = true;
+    }
   }
 }

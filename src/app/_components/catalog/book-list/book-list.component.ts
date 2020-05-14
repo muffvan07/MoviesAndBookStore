@@ -9,14 +9,16 @@ import { Observable } from "rxjs";
   styleUrls: ["./book-list.component.css"],
 })
 export class BookListComponent implements OnInit, OnDestroy {
-  books: Observable<Book[]>;
+  books: Book[] = [];
   page = 1;
   pageSize = 4;
 
   constructor(private booksService: BooksService) {}
 
   ngOnInit(): void {
-    this.books = this.booksService.getBooks();
+    this.booksService.getBooks().subscribe((books) => {
+      this.books = books;
+    });
   }
 
   ngOnDestroy() {}

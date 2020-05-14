@@ -5,6 +5,7 @@ import { NgbRatingConfig } from "@ng-bootstrap/ng-bootstrap";
 import { ActivatedRoute, Params } from "@angular/router";
 import { Book } from "src/app/_models/book";
 import { Subscription } from "rxjs";
+import { Cart } from "src/app/_models/cart";
 
 @Component({
   selector: "app-cart",
@@ -12,13 +13,12 @@ import { Subscription } from "rxjs";
   styleUrls: ["./cart.component.css"],
 })
 export class CartComponent implements OnInit {
-  movies: Movie[];
-  books: Book[];
+  cartItems: Cart[];
   page = 1;
   pageSize = 4;
-  cartCount: number = 1;
-  itemAmount: number = 4;
-  id: number;
+  cartTotal = 0;
+  quantity: number;
+  shipping = 100;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,10 +30,21 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.movies = this.cartService.getItems();
+    this.cartItems = this.cartService.getItems();
+  }
+
+  ngDoCheck() {
+    this.cartTotal = 0;
+    this.cartItems.forEach((item) => {
+      this.cartTotal += item.quantity * item.amount;
+    });
   }
 
   onDelete(i) {
     this.cartService.deleteProduct(i);
+  }
+
+  clearCart() {
+    this.cartItems = this.cartService.clearCart();
   }
 }

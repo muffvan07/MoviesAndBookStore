@@ -1,6 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { NgOtpInputModule } from "ng-otp-input";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -51,7 +52,8 @@ import { WishlistComponent } from "./_components/wishlist/wishlist.component";
 import { CatalogDetailsComponent } from "./_components/catalog/catalog-details/catalog-details.component";
 import { SafeUrlPipe } from "./_guards/safe-url.pipe";
 import { WishlistService } from "./_services/wishlist.service";
-import { CheckoutComponent } from './_components/checkout/checkout.component';
+import { CheckoutComponent } from "./_components/checkout/checkout.component";
+import { CustomerService } from "./_services/customer.service";
 
 @NgModule({
   declarations: [
@@ -80,6 +82,7 @@ import { CheckoutComponent } from './_components/checkout/checkout.component';
     NgbModule,
     FormsModule,
     FontAwesomeModule,
+    NgOtpInputModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
@@ -91,6 +94,7 @@ import { CheckoutComponent } from './_components/checkout/checkout.component';
     BooksService,
     CartService,
     WishlistService,
+    CustomerService,
     fakeBackendProvider,
   ],
   bootstrap: [AppComponent],

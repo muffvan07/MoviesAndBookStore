@@ -13,19 +13,20 @@
   <div class="row">
     <div class="col-md-8 mb-4">
       <div class="card">
-        <form class="card-body">
+        <form
+          class="card-body"
+          [formGroup]="UserProfileForm"
+          (ngSubmit)="onSubmit(UserProfileForm.value)"
+        >
           <div class="row">
-            <div class="col-md-6 mb-2">
+            <div class="col-md-12 mb-2">
               <div class="md-form">
-                <input type="text" id="firstName" class="form-control" />
-                <label for="firstName" class="">First name</label>
-              </div>
-            </div>
-
-            <div class="col-md-6 mb-2">
-              <div class="md-form">
-                <input type="text" id="lastName" class="form-control" />
-                <label for="lastName" class="">Last name</label>
+                <input
+                  type="text"
+                  formControlName="fullName"
+                  class="form-control"
+                />
+                <label for="fullName" class="">Full name</label>
               </div>
             </div>
           </div>
@@ -39,6 +40,7 @@
               class="form-control py-0"
               placeholder="Username"
               aria-describedby="basic-addon1"
+              formControlName="username"
             />
           </div>
 
@@ -47,7 +49,7 @@
           <div class="mb-2">
             <input
               type="text"
-              id="email"
+              formControlName="email"
               class="form-control"
               placeholder="youremail@example.com"
             />
@@ -57,21 +59,11 @@
           <div class="mb-2">
             <input
               type="text"
-              id="address"
+              formControlName="address"
               class="form-control"
               placeholder="1234 Main St"
             />
-            <label for="address" class="">Address Line 1</label>
-          </div>
-
-          <div class="mb-2">
-            <input
-              type="text"
-              id="address-2"
-              class="form-control"
-              placeholder="Apartment or suite"
-            />
-            <label for="address-2" class="">Address Line 2</label>
+            <label for="address" class="">Address</label>
           </div>
 
           <hr />
@@ -82,7 +74,7 @@
               <input
                 type="text"
                 class="form-control"
-                id="country"
+                formControlName="country"
                 placeholder="Country"
                 required
               />
@@ -96,7 +88,7 @@
               <input
                 type="text"
                 class="form-control"
-                id="state"
+                formControlName="state"
                 placeholder="State"
                 required
               />
@@ -110,7 +102,7 @@
               <input
                 type="text"
                 class="form-control"
-                id="zip"
+                formControlName="zip"
                 placeholder=""
                 required
               />
@@ -122,100 +114,32 @@
 
           <hr />
 
-          <div class="row mb-2 justify-content-around">
-            <div class="custom-control custom-radio">
-              <input
-                id="credit"
-                name="paymentMethod"
-                type="radio"
-                class="custom-control-input"
-                checked
-                required
-              />
-              <label class="custom-control-label" for="credit"
-                >Credit card</label
-              >
-            </div>
-            <div class="custom-control custom-radio">
-              <input
-                id="debit"
-                name="paymentMethod"
-                type="radio"
-                class="custom-control-input"
-                required
-              />
-              <label class="custom-control-label" for="debit">Debit card</label>
-            </div>
-            <div class="custom-control custom-radio">
-              <input
-                id="paypal"
-                name="paymentMethod"
-                type="radio"
-                class="custom-control-input"
-                required
-              />
-              <label class="custom-control-label" for="paypal">Paypal</label>
-            </div>
-          </div>
           <div class="row">
-            <div class="col-md-6 mb-3">
-              <label for="cc-name">Name on card</label>
+            <div class="col-md-12 mb-3">
+              <label for="cc-name">Enter UPI Id</label>
               <input
                 type="text"
                 class="form-control"
-                id="cc-name"
+                formControlName="upi"
                 placeholder=""
                 required
               />
-              <small class="text-muted">Full name as displayed on card</small>
+              <small class="text-muted"
+                >Upi id should be connected to your bank account</small
+              >
               <div class="invalid-feedback">
                 Name on card is required
               </div>
             </div>
-            <div class="col-md-6 mb-3">
-              <label for="cc-number">Credit card number</label>
-              <input
-                type="text"
-                class="form-control"
-                id="cc-number"
-                placeholder=""
-                required
-              />
-              <div class="invalid-feedback">
-                Credit card number is required
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 mb-3">
-              <label for="cc-expiration">Expiration</label>
-              <input
-                type="text"
-                class="form-control"
-                id="cc-expiration"
-                placeholder=""
-                required
-              />
-              <div class="invalid-feedback">
-                Expiration date required
-              </div>
-            </div>
-            <div class="col-md-3 mb-3">
-              <label for="cc-expiration">CVV</label>
-              <input
-                type="text"
-                class="form-control"
-                id="cc-cvv"
-                placeholder=""
-                required
-              />
-              <div class="invalid-feedback">
-                Security code required
-              </div>
-            </div>
           </div>
           <hr class="mb-4" />
-          <button class="btn btn-success btn-lg btn-block" type="submit">
+          <button
+            class="btn btn-success btn-lg btn-block"
+            type="submit"
+            [disabled]="!UserProfileForm.valid"
+            data-toggle="modal"
+            data-target="#exampleModalCenter"
+          >
             Continue to checkout
           </button>
         </form>
@@ -225,25 +149,133 @@
 
     <div class="col-md-4 mb-4">
       <h4 class="d-flex justify-content-between align-items-center mb-3">
-        <span class="text-muted">Your cart</span>
+        <span class="">Your cart</span>
       </h4>
 
       <!-- Cart -->
       <ul class="list-group mb-3 z-depth-1">
-        <li class="list-group-item d-flex justify-content-between lh-condensed">
+        <li
+          class="list-group-item d-flex justify-content-between lh-condensed"
+          *ngFor="let item of cartItems; let i = index"
+        >
           <div>
-            <h6 class="my-0">Product name</h6>
-            <small class="text-muted">Type</small>
+            <a class="sm" (click)="onDelete(i)" style="cursor: pointer;">
+              <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+            </a>
           </div>
-          <span class="text-muted">$12</span>
+          <div class="col-md-8 text-left">
+            <h6 class="my-0">{{ item.name }}</h6>
+            <small class="text-muted">{{ item.type }}</small>
+          </div>
+          <span class="text-muted">{{
+            item.amount | currency: "INR":true
+          }}</span>
         </li>
 
         <li class="list-group-item d-flex justify-content-between">
-          <span>Total (USD)</span>
-          <strong>$20</strong>
+          <span>Shipping</span>
+          <strong>{{ shipping | currency: "INR":"symbol" }}</strong>
+        </li>
+
+        <li class="list-group-item d-flex justify-content-between">
+          <span>Total (INR)</span>
+          <strong>{{ cartTotal + shipping | currency: "INR":"symbol" }}</strong>
         </li>
       </ul>
       <!-- Cart -->
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="exampleModalCenter"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Confirm Order</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card" *ngFor="let cust of customer">
+          <div class="card-header">
+            Shipping Details
+          </div>
+          <div class="card-body">
+            <Table>
+              <tr>
+                <td>Name</td>
+                <td>:</td>
+                <td>{{ cust.Name }}</td>
+              </tr>
+              <tr>
+                <td>Address</td>
+                <td>:</td>
+                <td>{{ cust.Address }}</td>
+              </tr>
+              <tr>
+                <td>UPI Id</td>
+                <td>:</td>
+                <td>{{ cust.UpiId }}</td>
+              </tr>
+            </Table>
+          </div>
+          <div class="card-footer">
+            <Table>
+              <tr>
+                <td>Total Amount</td>
+                <td>:</td>
+                <td>{{ cartTotal + shipping | currency: "INR":"symbol" }}</td>
+              </tr>
+            </Table>
+          </div>
+          <br />
+          <div class="content">
+            <div class="">
+              <div>
+                <div class="card text-center">
+                  <p style="padding-top: 20px;">Enter OTP</p>
+                  <ng-otp-input
+                    #ngOtpInput
+                    (onInputChange)="onOtpChange($event)"
+                    *ngIf="showOtpComponent"
+                    [config]="config"
+                    style="padding: 20px;"
+                  ></ng-otp-input>
+                  <span *ngIf="otp" style="padding-bottom: 20px;"
+                    >Entered otp : {{ otp }}</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+            (click)="onClear()"
+          >
+            Close
+          </button>
+          <button type="button" class="btn btn-primary" (click)="verifyOtp()">
+            Confirm Order
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
