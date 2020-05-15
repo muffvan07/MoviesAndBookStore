@@ -27,7 +27,7 @@
     </div>
     <div class="card-footer bg-transparent">
       <label class="card-text">
-        Price : {{ movie.amount | currency: "INR":true }}/- </label
+        Price : {{ movie.amount | currency: "INR":"symbol" }}/- </label
       ><br />
       <label class="card-text">Director : {{ movie.director }}</label
       ><br />

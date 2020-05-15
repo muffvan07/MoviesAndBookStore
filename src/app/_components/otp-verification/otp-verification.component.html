@@ -1,0 +1,90 @@
+<div class="row justify-content-between">
+  <div>
+    <h3><fa-icon [icon]="['fas', 'shopping-cart']"></fa-icon> Confirm Order</h3>
+  </div>
+  <button class="btn btn-primary" routerLink="/catalog">
+    <fa-icon [icon]="['fas', 'arrow-left']"> </fa-icon> Continue Shopping
+  </button>
+</div>
+
+<hr />
+
+<div class="card" *ngFor="let cust of customer">
+  <div class="card-header bg-primary">
+    Shipping Details
+  </div>
+  <div class="card-body">
+    <Table>
+      <tr>
+        <td>Name</td>
+        <td>:</td>
+        <td></td>
+        <td>{{ cust.Name }}</td>
+      </tr>
+      <tr>
+        <td>E-mail</td>
+        <td>:</td>
+        <td></td>
+        <td>{{ cust.Email }}</td>
+      </tr>
+      <tr>
+        <td>Address</td>
+        <td>:</td>
+        <td></td>
+        <td>
+          {{ cust.Address }}, {{ cust.State }}, {{ cust.Country }},
+          {{ cust.Zipcode }}
+        </td>
+      </tr>
+      <tr>
+        <td>UPI Id</td>
+        <td>:</td>
+        <td></td>
+        <td>{{ cust.UpiId }}</td>
+      </tr>
+    </Table>
+  </div>
+  <div class="card-footer bg-warning">
+    <Table>
+      <tr>
+        <td>Total Amount</td>
+        <td>:</td>
+        <td></td>
+        <td>{{ cartTotal + shipping | currency: "INR":"symbol" }}</td>
+      </tr>
+    </Table>
+  </div>
+  <br />
+  <div class="content">
+    <div class="">
+      <div>
+        <div class="card text-center">
+          <p style="padding-top: 20px;">Enter OTP</p>
+          <ng-otp-input
+            #ngOtpInput
+            (onInputChange)="onOtpChange($event)"
+            *ngIf="showOtpComponent"
+            [config]="config"
+            style="padding: 20px;"
+          ></ng-otp-input>
+          <span *ngIf="otp" style="padding-bottom: 20px;"
+            >Entered otp : {{ otp }}</span
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      routerLink="/cart/checkout"
+      (click)="onClear()"
+    >
+      Back
+    </button>
+    <button type="button" class="btn btn-primary" (click)="verifyOtp()">
+      Confirm Order
+    </button>
+  </div>
+</div>

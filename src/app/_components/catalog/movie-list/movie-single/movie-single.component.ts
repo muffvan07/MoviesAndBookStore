@@ -61,7 +61,7 @@ export class MovieSingleComponent implements OnInit {
     for (let i in this.wishlistItem) {
       if (this.wishlistItem[i].name === item.name) {
         this.addedToWishlist = true;
-        alert("item Already In Wishlist");
+        alert("Item is Already In Wishlist");
         itemExist = true;
         break;
       }

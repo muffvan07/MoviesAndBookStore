@@ -54,6 +54,7 @@ import { SafeUrlPipe } from "./_guards/safe-url.pipe";
 import { WishlistService } from "./_services/wishlist.service";
 import { CheckoutComponent } from "./_components/checkout/checkout.component";
 import { CustomerService } from "./_services/customer.service";
+import { OtpVerificationComponent } from './_components/otp-verification/otp-verification.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { CustomerService } from "./_services/customer.service";
     CatalogDetailsComponent,
     SafeUrlPipe,
     CheckoutComponent,
+    OtpVerificationComponent,
   ],
   imports: [
     BrowserModule,

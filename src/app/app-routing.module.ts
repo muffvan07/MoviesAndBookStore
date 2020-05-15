@@ -10,6 +10,7 @@ import { WishlistComponent } from "./_components/wishlist/wishlist.component";
 import { CatalogDetailsComponent } from "./_components/catalog/catalog-details/catalog-details.component";
 import { MovieListComponent } from "./_components/catalog/movie-list/movie-list.component";
 import { CheckoutComponent } from "./_components/checkout/checkout.component";
+import { OtpVerificationComponent } from "./_components/otp-verification/otp-verification.component";
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -54,7 +55,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: "checkout",
+    path: "cart/checkout/otpverify",
+    component: OtpVerificationComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "cart/checkout",
     component: CheckoutComponent,
     canActivate: [AuthGuard],
   },

@@ -7,34 +7,20 @@
     <button class="btn btn-primary" routerLink="/catalog">
       <fa-icon [icon]="['fas', 'arrow-left']"> </fa-icon> Continue Shopping
     </button>
-    <button *ngIf="wishlistItems.length === 0" class="btn btn-danger" disabled>
+    <button class="btn btn-danger" (click)="clearWishlist()">
       <fa-icon [icon]="['fas', 'trash']"> </fa-icon> Clear Wishlist
-    </button>
-    <button
-      *ngIf="wishlistItems.length > 0"
-      class="btn btn-danger"
-      (click)="clearWishlist()"
-    >
-      <fa-icon [icon]="['fas', 'trash']"> </fa-icon> Clear Cart
     </button>
   </div>
 </div>
 
 <hr />
 
-<div *ngIf="wishlistItems.length === 0" class="text-center">
+<div *ngIf="wishlistItems === null" class="text-center">
   No items in Wishlist. <br /><br />
 </div>
 
 <section>
-  <div
-    class="row mb-4"
-    *ngFor="
-      let item of wishlistItems
-        | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize;
-      let i = index
-    "
-  >
+  <div class="row mb-4" *ngFor="let item of wishlistItems; let i = index">
     <div class="col-md-5 col-lg-3 col-xl-3">
       <div class="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
         <img class="img-fluid w-100" [src]="item.image" alt="Sample" />
@@ -59,13 +45,13 @@
         </div>
         <div class="col-lg-5 col-xl-5">
           <h6 class="mb-3">
-            <span>{{ item.amount | currency: "INR":true }}</span>
+            <span>{{ item.amount | currency: "INR":"symbol" }}</span>
           </h6>
           Rating : <ngb-rating [rate]="item.rating"></ngb-rating>
           <br />
           <br />
           <div
-            class="btn-group btn-group-toggle row card-footer bg-transparent"
+            class="col-md-12 btn-group btn-group-toggle row card-footer bg-transparent"
             data-toggle="buttons"
           >
             <label class="btn btn-info" *ngIf="item.quantity != 0">
@@ -88,7 +74,17 @@
               />
               Sold Out
             </label>
-            <label class="btn btn-primary">
+            <label *ngIf="item.type == 'Movie'" class="btn btn-primary">
+              <input
+                type="radio"
+                name="options"
+                id="option3"
+                autocomplete="off"
+                [routerLink]="['/movies', item.id]"
+              />
+              <fa-icon [icon]="['fas', 'info']"></fa-icon> Details
+            </label>
+            <label *ngIf="item.type == 'Book'" class="btn btn-primary">
               <input
                 type="radio"
                 name="options"
@@ -98,16 +94,16 @@
               />
               <fa-icon [icon]="['fas', 'info']"></fa-icon> Details
             </label>
-            <label class="btn btn-warning">
+            <!-- <label class="btn btn-danger">
               <input
                 type="radio"
                 name="options"
                 id="option4"
                 autocomplete="off"
-                (click)="onDelete(item)"
+                (click)="onDelete()"
               />
-              <fa-icon [icon]="['fas', 'star']"></fa-icon>
-            </label>
+              <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+            </label> -->
           </div>
         </div>
       </div>
@@ -115,12 +111,4 @@
   </div>
 </section>
 
-<ngb-pagination
-  [collectionSize]="wishlistItems.length"
-  [(page)]="page"
-  [pageSize]="pageSize"
-  [boundaryLinks]="true"
-  aria-label="Default pagination"
-  class="d-flex justify-content-center"
-></ngb-pagination>
 <!--Section: Block Content-->

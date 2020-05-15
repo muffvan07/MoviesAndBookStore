@@ -23,7 +23,7 @@
               <div class="md-form">
                 <input
                   type="text"
-                  formControlName="fullName"
+                  formControlName="Name"
                   class="form-control"
                 />
                 <label for="fullName" class="">Full name</label>
@@ -40,7 +40,7 @@
               class="form-control py-0"
               placeholder="Username"
               aria-describedby="basic-addon1"
-              formControlName="username"
+              formControlName="Username"
             />
           </div>
 
@@ -49,7 +49,7 @@
           <div class="mb-2">
             <input
               type="text"
-              formControlName="email"
+              formControlName="Email"
               class="form-control"
               placeholder="youremail@example.com"
             />
@@ -59,7 +59,7 @@
           <div class="mb-2">
             <input
               type="text"
-              formControlName="address"
+              formControlName="Address"
               class="form-control"
               placeholder="1234 Main St"
             />
@@ -74,7 +74,7 @@
               <input
                 type="text"
                 class="form-control"
-                formControlName="country"
+                formControlName="Country"
                 placeholder="Country"
                 required
               />
@@ -88,7 +88,7 @@
               <input
                 type="text"
                 class="form-control"
-                formControlName="state"
+                formControlName="State"
                 placeholder="State"
                 required
               />
@@ -102,8 +102,8 @@
               <input
                 type="text"
                 class="form-control"
-                formControlName="zip"
-                placeholder=""
+                formControlName="Zipcode"
+                placeholder="Zip"
                 required
               />
               <div class="invalid-feedback">
@@ -120,8 +120,8 @@
               <input
                 type="text"
                 class="form-control"
-                formControlName="upi"
-                placeholder=""
+                formControlName="UpiId"
+                placeholder="Enter UPI Id"
                 required
               />
               <small class="text-muted"
@@ -137,8 +137,6 @@
             class="btn btn-success btn-lg btn-block"
             type="submit"
             [disabled]="!UserProfileForm.valid"
-            data-toggle="modal"
-            data-target="#exampleModalCenter"
           >
             Continue to checkout
           </button>
@@ -164,11 +162,11 @@
             </a>
           </div>
           <div class="col-md-8 text-left">
-            <h6 class="my-0">{{ item.name }}</h6>
+            <h6 class="my-0">{{ item.name }} ({{ item.quantity }})</h6>
             <small class="text-muted">{{ item.type }}</small>
           </div>
           <span class="text-muted">{{
-            item.amount | currency: "INR":true
+            item.amount | currency: "INR":"symbol"
           }}</span>
         </li>
 
@@ -187,7 +185,7 @@
   </div>
 </div>
 
-<div
+<!-- <div
   class="modal fade"
   id="exampleModalCenter"
   tabindex="-1"
@@ -278,4 +276,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

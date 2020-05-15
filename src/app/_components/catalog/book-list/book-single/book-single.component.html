@@ -28,7 +28,7 @@
     </div>
     <div class="card-footer bg-transparent">
       <label class="card-text">
-        Price : {{ book.amount | currency: "INR":true }}/- </label
+        Price : {{ book.amount | currency: "INR":"symbol" }}/- </label
       ><br />
       <label class="card-text">Writer : {{ book.writer }}</label
       ><br />

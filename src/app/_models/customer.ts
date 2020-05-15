@@ -1,24 +1,24 @@
 export class Customer {
-  public id: number;
+  public Username: string;
   public Name: string;
   public Email: string;
   public Address: string;
   public State: string;
   public Zipcode: number;
   public Country: string;
-  public UpiId: number;
+  public UpiId: string;
 
   constructor(
-    id: number,
+    Username: string,
     Name: string,
     Email: string,
     Address: string,
     State: string,
     Zipcode: number,
     Country: string,
-    UpiId: number
+    UpiId: string
   ) {
-    this.id = id;
+    this.Username = Username;
     this.Name = Name;
     this.Email = Email;
     this.Address = Address;

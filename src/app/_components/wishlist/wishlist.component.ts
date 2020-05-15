@@ -27,7 +27,7 @@ export class WishlistComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.wishlistItems = this.wishlistService.getItems();
+    this.wishlistItems = JSON.parse(localStorage.getItem("item"));
   }
 
   addToCart(item: Movie) {
@@ -60,7 +60,7 @@ export class WishlistComponent implements OnInit {
   }
 
   onDelete(i) {
-    this.wishlistService.deleteProduct(i);
+    this.wishlistService.deleteProduct();
   }
 
   clearWishlistt() {

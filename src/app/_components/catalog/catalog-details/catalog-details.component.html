@@ -28,7 +28,7 @@
 
       <p>
         <span class="mr-1"
-          ><strong>{{ movie.amount | currency: "INR":true }}</strong></span
+          ><strong>{{ movie.amount | currency: "INR":"symbol" }}</strong></span
         >
       </p>
       <p>
@@ -174,7 +174,7 @@
       <p>
         <ngb-rating [rate]="movie.rating"></ngb-rating>
       </p>
-      <h6>{{ movie.amount | currency: "INR":true }}</h6>
+      <h6>{{ movie.amount | currency: "INR":"symbol" }}</h6>
       <p class="pt-1">
         {{ movie.description }}
       </p>
@@ -262,7 +262,7 @@
 
       <p>
         <span class="mr-1"
-          ><strong>{{ book.amount | currency: "INR":true }}</strong></span
+          ><strong>{{ book.amount | currency: "INR":"symbol" }}</strong></span
         >
       </p>
       <p>
@@ -433,7 +433,7 @@
       <p>
         <ngb-rating [rate]="book.goodreadsRatings"></ngb-rating>
       </p>
-      <h6>{{ book.amount | currency: "INR":true }}</h6>
+      <h6>{{ book.amount | currency: "INR":"symbol" }}</h6>
       <p class="pt-1">
         {{ book.description }}
       </p>

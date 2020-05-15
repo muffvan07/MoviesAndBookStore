@@ -1,5 +1,4 @@
-import { Subject } from "rxjs";
-import { Movie } from "../_models/movie";
+import { Book } from "../_models/book";
 
 export class WishlistService {
   items = [];
@@ -18,18 +17,22 @@ export class WishlistService {
 
   addToWishList(product) {
     this.items.push(product);
+    localStorage.setItem("item", JSON.stringify(this.items));
   }
 
   getItems() {
     return this.items;
   }
 
-  deleteProduct(index: number) {
+  deleteProduct() {
+    const index = this.items.indexOf("item");
     this.items.splice(index, 1);
+    localStorage.setItem("item", JSON.stringify(this.items));
   }
 
   clearWishlist() {
     this.items = [];
+    localStorage.removeItem("item");
     return this.items;
   }
 }

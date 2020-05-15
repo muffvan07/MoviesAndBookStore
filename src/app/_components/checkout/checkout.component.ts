@@ -1,11 +1,16 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, Router, Params } from "@angular/router";
 import { CartService } from "src/app/_services/cart.service";
 import { NgbRatingConfig } from "@ng-bootstrap/ng-bootstrap";
 import { Cart } from "src/app/_models/cart";
-import { FormBuilder, Validators } from "@angular/forms";
 import { CustomerService } from "src/app/_services/customer.service";
 import { Customer } from "src/app/_models/customer";
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder,
+} from "@angular/forms";
 
 @Component({
   selector: "app-checkout",
@@ -13,13 +18,12 @@ import { Customer } from "src/app/_models/customer";
   styleUrls: ["./checkout.component.css"],
 })
 export class CheckoutComponent implements OnInit {
-  customer: Customer[];
+  customer: any[];
   submitted = false;
   cartItems: Cart[];
   cartTotal = 0;
   quantity: number;
   shipping = 100;
-  UserProfileForm;
   otp: string;
   showOtpComponent = true;
   @ViewChild("ngOtpInput") ngOtpInput: any;
@@ -45,22 +49,23 @@ export class CheckoutComponent implements OnInit {
   ) {
     rating.max = 5;
     rating.readonly = true;
-
-    this.UserProfileForm = this.form.group({
-      fullName: ["", Validators.required],
-      email: ["", Validators.required],
-      address: ["", Validators.required],
-      state: ["", Validators.required],
-      country: ["", Validators.required],
-      zip: ["", Validators.required],
-      username: ["", Validators.required],
-      upi: ["", Validators.required],
-    });
   }
+
+  UserProfileForm = this.form.group({
+    Name: ["", Validators.required],
+    Email: ["", Validators.required],
+    Address: ["", Validators.required],
+    State: ["", Validators.required],
+    Country: ["", Validators.required],
+    Zipcode: ["", Validators.required],
+    Username: ["", Validators.required],
+    UpiId: ["", Validators.required],
+  });
 
   ngOnInit(): void {
     this.cartItems = this.cartService.getItems();
     this.customer = this.customerService.getCustomer();
+    console.log(this.customer);
   }
 
   ngDoCheck() {
@@ -80,34 +85,6 @@ export class CheckoutComponent implements OnInit {
 
   onSubmit(data) {
     this.customerService.addCustomer(this.UserProfileForm.value);
-  }
-
-  onClear() {
-    this.customerService.clearCust();
-  }
-
-  onOtpChange(otp) {
-    this.otp = otp;
-  }
-
-  setVal(val) {
-    this.ngOtpInput.setValue(val);
-  }
-
-  onConfigChange() {
-    this.showOtpComponent = false;
-    this.otp = null;
-    setTimeout(() => {
-      this.showOtpComponent = true;
-    }, 0);
-  }
-
-  verifyOtp() {
-    if (this.otp === "778899") {
-      alert("Your Order has been Placed Successfully!!");
-      this.router.navigate(["/catalog"], { relativeTo: this.route });
-    } else {
-      alert("Invalid OTP!");
-    }
+    this.router.navigate(["/cart/checkout/otpverify"]);
   }
 }
