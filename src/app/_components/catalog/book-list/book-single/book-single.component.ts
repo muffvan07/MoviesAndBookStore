@@ -2,11 +2,9 @@ import { Component, OnInit, Input } from "@angular/core";
 import { Book } from "src/app/_models/book";
 import { CartService } from "src/app/_services/cart.service";
 import { WishlistService } from "src/app/_services/wishlist.service";
-import { MoviesService } from "src/app/_services/movies.service";
-import { Movie } from "src/app/_models/movie";
 import { Cart } from "src/app/_models/cart";
-import { BooksService } from "src/app/_services/books.service";
 import { Wishlist } from "src/app/_models/wishlist";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-book-single",
@@ -22,38 +20,47 @@ export class BookSingleComponent implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private wishlistService: WishlistService
+    private wishlistService: WishlistService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
     this.cartItem = this.cartService.getItems();
+    this.wishlistItem = this.wishlistService.getItems();
   }
 
   addToCart(item: Book) {
-    let itemExist = false;
+    try {
+      let itemExist = false;
 
-    for (let i in this.cartItem) {
-      if (this.cartItem[i].name === item.name) {
-        this.cartItem[i].quantity++;
-        item.quantity--;
-        itemExist = true;
-        break;
+      for (let i in this.cartItem) {
+        if (this.cartItem[i].name === item.name) {
+          this.cartItem[i].quantity++;
+          item.quantity--;
+          itemExist = true;
+          break;
+        }
       }
-    }
 
-    if (!itemExist) {
-      item.quantity--;
-      this.cartService.addToCart({
-        name: item.name,
-        releaseYear: item.releaseYear,
-        genre: item.genre,
-        amount: item.amount,
-        image: item.image,
-        quantity: 1,
-        description: item.description,
-        writer_director: item.writer,
-        rating: item.goodreadsRatings,
-        type: item.type,
+      if (!itemExist) {
+        item.quantity--;
+        this.cartService.addToCart({
+          name: item.name,
+          releaseYear: item.releaseYear,
+          genre: item.genre,
+          amount: item.amount,
+          image: item.image,
+          quantity: 1,
+          description: item.description,
+          writer_director: item.writer,
+          rating: item.goodreadsRatings,
+          type: item.type,
+        });
+      }
+      this.toastr.success("Added to Cart! ", item.name);
+    } catch (e) {
+      this.toastr.error("Try adding the item again", "Major Error", {
+        timeOut: 3000,
       });
     }
   }
@@ -64,7 +71,7 @@ export class BookSingleComponent implements OnInit {
     for (let i in this.wishlistItem) {
       if (this.wishlistItem[i].name === item.name) {
         this.addedToWishlist = true;
-        alert("Item is Already In Wishlist");
+        this.toastr.warning("Item is Already In Wishlist");
         itemExist = true;
         break;
       }
@@ -85,6 +92,7 @@ export class BookSingleComponent implements OnInit {
         type: item.type,
       });
       this.addedToWishlist = true;
+      this.toastr.info("Added to Wishlist");
     }
   }
 }

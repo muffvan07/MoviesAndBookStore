@@ -1,11 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { Movie } from "src/app/_models/movie";
 import { CartService } from "src/app/_services/cart.service";
 import { NgbRatingConfig } from "@ng-bootstrap/ng-bootstrap";
 import { ActivatedRoute, Params } from "@angular/router";
-import { Book } from "src/app/_models/book";
-import { Subscription } from "rxjs";
 import { Cart } from "src/app/_models/cart";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-cart",
@@ -21,9 +19,9 @@ export class CartComponent implements OnInit {
   shipping = 100;
 
   constructor(
-    private route: ActivatedRoute,
     private cartService: CartService,
-    private config: NgbRatingConfig
+    private config: NgbRatingConfig,
+    private toastr: ToastrService
   ) {
     config.max = 5;
     config.readonly = true;
@@ -42,9 +40,11 @@ export class CartComponent implements OnInit {
 
   onDelete(i) {
     this.cartService.deleteProduct(i);
+    this.toastr.info("Item removed from Cart");
   }
 
   clearCart() {
     this.cartItems = this.cartService.clearCart();
+    this.toastr.info("Cart Cleared!");
   }
 }

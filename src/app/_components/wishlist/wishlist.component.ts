@@ -5,6 +5,7 @@ import { NgbRatingConfig } from "@ng-bootstrap/ng-bootstrap";
 import { CartService } from "src/app/_services/cart.service";
 import { Wishlist } from "src/app/_models/wishlist";
 import { Cart } from "src/app/_models/cart";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-wishlist",
@@ -20,7 +21,8 @@ export class WishlistComponent implements OnInit {
   constructor(
     private wishlistService: WishlistService,
     private cartService: CartService,
-    private config: NgbRatingConfig
+    private config: NgbRatingConfig,
+    private toastr: ToastrService
   ) {
     config.max = 5;
     config.readonly = true;
@@ -28,33 +30,41 @@ export class WishlistComponent implements OnInit {
 
   ngOnInit(): void {
     this.wishlistItems = JSON.parse(localStorage.getItem("item"));
+    this.cartItem = this.cartService.getItems();
   }
 
-  addToCart(item: Movie) {
-    let itemExist = false;
+  addToCart(item) {
+    try {
+      let itemExist = false;
 
-    for (let i in this.cartItem) {
-      if (this.cartItem[i].name === item.name) {
-        this.cartItem[i].quantity++;
-        item.quantity--;
-        itemExist = true;
-        break;
+      for (let i in this.cartItem) {
+        if (this.cartItem[i].name === item.name) {
+          this.cartItem[i].quantity++;
+          item.quantity--;
+          itemExist = true;
+          break;
+        }
       }
-    }
 
-    if (!itemExist) {
-      item.quantity--;
-      this.cartService.addToCart({
-        name: item.name,
-        releaseYear: item.releaseYear,
-        genre: item.genre,
-        amount: item.amount,
-        image: item.image,
-        quantity: 1,
-        description: item.description,
-        writer_director: item.director,
-        rating: item.rating,
-        type: item.type,
+      if (!itemExist) {
+        item.quantity--;
+        this.cartService.addToCart({
+          name: item.name,
+          releaseYear: item.releaseYear,
+          genre: item.genre,
+          amount: item.amount,
+          image: item.image,
+          quantity: 1,
+          description: item.description,
+          writer_director: item.director,
+          rating: item.rating,
+          type: item.type,
+        });
+      }
+      this.toastr.success("Added to Cart! ", item.name);
+    } catch (e) {
+      this.toastr.error("Try adding the item again", "Major Error", {
+        timeOut: 3000,
       });
     }
   }
@@ -63,11 +73,8 @@ export class WishlistComponent implements OnInit {
     this.wishlistService.deleteProduct();
   }
 
-  clearWishlistt() {
-    this.wishlistItems = this.wishlistService.clearWishlist();
-  }
-
   clearWishlist() {
     this.wishlistItems = this.wishlistService.clearWishlist();
+    this.toastr.info("Wishlist Cleared!");
   }
 }

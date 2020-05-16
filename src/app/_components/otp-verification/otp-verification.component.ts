@@ -4,6 +4,7 @@ import { Customer } from "src/app/_models/customer";
 import { CustomerService } from "src/app/_services/customer.service";
 import { Cart } from "src/app/_models/cart";
 import { CartService } from "src/app/_services/cart.service";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-otp-verification",
@@ -34,7 +35,8 @@ export class OtpVerificationComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private customerService: CustomerService,
-    private cartService: CartService
+    private cartService: CartService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -68,12 +70,14 @@ export class OtpVerificationComponent implements OnInit {
 
   verifyOtp() {
     if (this.otp === "778899") {
-      alert("Your Order has been Placed Successfully!!");
+      this.toastr.success("Your Order has been placed!", "Success!", {
+        timeOut: 4000,
+      });
       this.onClear();
       this.clearCart();
       this.router.navigate(["/"], { relativeTo: this.route });
     } else {
-      alert("Invalid OTP!");
+      this.toastr.error("Invalid OTP!");
     }
   }
 

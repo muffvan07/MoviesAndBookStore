@@ -2,6 +2,8 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { NgOtpInputModule } from "ng-otp-input";
+import { ToastrModule } from "ngx-toastr";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -54,7 +56,7 @@ import { SafeUrlPipe } from "./_guards/safe-url.pipe";
 import { WishlistService } from "./_services/wishlist.service";
 import { CheckoutComponent } from "./_components/checkout/checkout.component";
 import { CustomerService } from "./_services/customer.service";
-import { OtpVerificationComponent } from './_components/otp-verification/otp-verification.component';
+import { OtpVerificationComponent } from "./_components/otp-verification/otp-verification.component";
 
 @NgModule({
   declarations: [
@@ -85,6 +87,12 @@ import { OtpVerificationComponent } from './_components/otp-verification/otp-ver
     FormsModule,
     FontAwesomeModule,
     NgOtpInputModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 1000,
+      positionClass: "toast-bottom-right",
+      preventDuplicates: false,
+    }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
