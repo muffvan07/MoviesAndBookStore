@@ -11,7 +11,7 @@ import { Observable } from "rxjs";
 export class BookListComponent implements OnInit, OnDestroy {
   books: Book[] = [];
   page = 1;
-  pageSize = 4;
+  pageSize = 8;
 
   constructor(private booksService: BooksService) {}
 

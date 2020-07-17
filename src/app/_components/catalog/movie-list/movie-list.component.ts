@@ -10,7 +10,7 @@ import { Observable } from "rxjs";
 })
 export class MovieListComponent implements OnInit, OnDestroy {
   page = 1;
-  pageSize = 4;
+  pageSize = 8;
 
   movies: Movie[] = [];
 
