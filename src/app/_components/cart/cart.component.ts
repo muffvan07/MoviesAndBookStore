@@ -16,7 +16,7 @@ export class CartComponent implements OnInit {
   pageSize = 4;
   cartTotal = 0;
   quantity: number;
-  shipping = 100;
+  shipping: number;
 
   constructor(
     private cartService: CartService,
@@ -35,6 +35,11 @@ export class CartComponent implements OnInit {
     this.cartTotal = 0;
     this.cartItems.forEach((item) => {
       this.cartTotal += item.quantity * item.amount;
+      if (this.cartTotal > 2000) {
+        this.shipping = 0;
+      } else {
+        this.shipping = 100;
+      }
     });
   }
 

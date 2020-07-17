@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "app-catalog",
@@ -11,7 +12,12 @@ export class CatalogComponent implements OnInit {
     "https://www.unl.edu/english/images/news/alumnibooks2017.png",
   ];
 
-  constructor() {}
+  constructor(private spinner: NgxSpinnerService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 1000);
+  }
 }

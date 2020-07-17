@@ -1,162 +1,138 @@
 <div class="row justify-content-between">
-  <div>
-    <h3><fa-icon [icon]="['fas', 'shopping-cart']"></fa-icon> My Cart</h3>
-  </div>
-  <div>
-    <button class="btn btn-primary" routerLink="/catalog">
+    <div>
+        <h3>
+            <fa-icon [icon]="['fas', 'shopping-cart']"></fa-icon> My Cart
+        </h3>
+    </div>
+    <div>
+        <button class="btn btn-primary" routerLink="/catalog">
       <fa-icon [icon]="['fas', 'arrow-left']"> </fa-icon> Continue Shopping
     </button>
-    <button *ngIf="cartItems.length === 0" class="btn btn-danger" disabled>
+        <button *ngIf="cartItems.length === 0" class="btn btn-danger" disabled>
       <fa-icon [icon]="['fas', 'trash']"> </fa-icon> Clear Cart
     </button>
-    <button
-      *ngIf="cartItems.length > 0"
-      class="btn btn-danger"
-      (click)="clearCart()"
-    >
+        <button *ngIf="cartItems.length > 0" class="btn btn-danger" (click)="clearCart()">
       <fa-icon [icon]="['fas', 'trash']"> </fa-icon> Clear Cart
     </button>
-  </div>
+    </div>
 </div>
 
 <hr />
 
 <div *ngIf="cartItems.length === 0" class="text-center">
-  No items in the Cart. <br /><br />
+    No items in the Cart. <br /><br />
 </div>
 
 <div class="container" *ngIf="cartItems.length > 0">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="table-responsive">
-        <table class="table">
-          <thead class="thead-light">
-            <tr>
-              <th scope="col">Image</th>
-              <th scope="col">Product</th>
-              <th scope="col">Quantity</th>
-              <th scope="col">Price</th>
-              <th scope="col">Total</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              *ngFor="
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Image</th>
+                            <th scope="col">Product</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Total</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="
                 let item of cartItems
                   | slice
                     : (page - 1) * pageSize
                     : (page - 1) * pageSize + pageSize;
                 let i = index
-              "
-            >
-              <td>
-                <img
-                  [src]="item.image"
-                  style="
+              ">
+                            <td>
+                                <img [src]="item.image" style="
                     max-height: 170px;
                     display: block;
                     margin-left: auto;
                     margin-right: auto;
-                  "
-                />
-              </td>
-              <td class="text-left">
-                <h5>{{ item.name }}</h5>
-                <br />
-                {{ item.type == "Book" ? "Writer" : "Director" }} :
-                {{ item.writer_director }} <br />
-                Release Year : {{ item.releaseYear }} <br />
-                {{ item.type == "Book" ? "Good Read Rating" : "Rating" }} :
-                <ngb-rating [rate]="item.rating"></ngb-rating>
-              </td>
+                  " />
+                            </td>
+                            <td class="text-left">
+                                <h5>{{ item.name }}</h5>
+                                <br /> {{ item.type == "Book" ? "Writer" : "Director" }} : {{ item.writer_director }} <br /> Release Year : {{ item.releaseYear }} <br /> {{ item.type == "Book" ? "Good Read Rating" : "Rating" }} :
+                                <ngb-rating [rate]="item.rating"></ngb-rating>
+                            </td>
 
-              <td>
-                <div *ngIf="item.quantity != 0">
-                  <input
-                    type="number"
-                    class="form-control col-md-4"
-                    style="margin: auto;"
-                    [(ngModel)]="item.quantity"
-                  />
-                </div>
-                <div *ngIf="item.quantity == 0">
-                  <span class="badge badge-pill badge-danger">Sold Out</span>
-                </div>
-              </td>
-              <td>
-                {{ item.amount | currency: "INR":"symbol" }}
-              </td>
-              <td>
-                {{ item.quantity * item.amount | currency: "INR":"symbol" }}
-              </td>
-              <td class="text-center">
-                <button class="btn btn-danger" (click)="onDelete(i)">
+                            <td>
+                                <div *ngIf="item.quantity != 0">
+                                    <input type="number" class="form-control col-md-4" style="margin: auto;" [(ngModel)]="item.quantity" />
+                                </div>
+                                <div *ngIf="item.quantity == 0">
+                                    <span class="badge badge-pill badge-danger">Sold Out</span>
+                                </div>
+                            </td>
+                            <td>
+                                {{ item.amount | currency: "INR":"symbol" }}
+                            </td>
+                            <td>
+                                {{ item.quantity * item.amount | currency: "INR":"symbol" }}
+                            </td>
+                            <td class="text-center">
+                                <button class="btn btn-danger" (click)="onDelete(i)">
                   <fa-icon [icon]="['fas', 'trash']"></fa-icon>
                 </button>
-              </td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>Sub-Total</td>
-              <td class="text-right">
-                {{ cartTotal | currency: "INR":"symbol" }}
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>Shipping</td>
-              <td class="text-right">
-                {{ shipping | currency: "INR":"symbol" }}
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><strong>Total</strong></td>
-              <td class="text-right">
-                <strong>{{
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Sub-Total</td>
+                            <td class="text-right">
+                                {{ cartTotal | currency: "INR":"symbol" }}
+                            </td>
+                        </tr>
+                        <tr *ngIf="cartTotal < 2000">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Shipping</td>
+                            <td class="text-right">
+                                {{ shipping | currency: "INR":"symbol" }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><strong>Total</strong></td>
+                            <td class="text-right">
+                                <strong>{{
                   cartTotal + shipping | currency: "INR":"symbol"
                 }}</strong>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="col mb-2">
-      <div class="row">
-        <div class="col-sm-12 col-md-12 text-right">
-          <button
-            class="btn btn-success text-uppercase"
-            routerLink="/cart/checkout"
-          >
-            Checkout <fa-icon [icon]="['fas', 'caret-right']"></fa-icon>
-          </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-      </div>
+        <div class="col mb-2">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 text-right">
+                    <button class="btn btn-success text-uppercase" routerLink="/cart/checkout">
+            Checkout <fa-icon [icon]="['fas', 'caret-right']"></fa-icon>
+          </button><br>
+
+                    <label class="control-label">If Cart total greater than 2000/- Shipping Free.</label>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
-<ngb-pagination
-  [collectionSize]="cartItems.length"
-  [(page)]="page"
-  [pageSize]="pageSize"
-  [boundaryLinks]="true"
-  aria-label="Default pagination"
-  class="d-flex justify-content-center"
-></ngb-pagination>
+<ngb-pagination [collectionSize]="cartItems.length" [(page)]="page" [pageSize]="pageSize" [boundaryLinks]="true" aria-label="Default pagination" class="d-flex justify-content-center"></ngb-pagination>
 
 <br />
 <br />

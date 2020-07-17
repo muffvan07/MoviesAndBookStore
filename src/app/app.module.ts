@@ -4,7 +4,7 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { NgOtpInputModule } from "ng-otp-input";
 import { ToastrModule } from "ngx-toastr";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-
+import { NgxSpinnerModule } from "ngx-spinner";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { HeaderComponent } from "./_components/header/header.component";
@@ -88,6 +88,7 @@ import { OtpVerificationComponent } from "./_components/otp-verification/otp-ver
     FontAwesomeModule,
     NgOtpInputModule,
     BrowserAnimationsModule,
+    NgxSpinnerModule,
     ToastrModule.forRoot({
       timeOut: 1000,
       positionClass: "toast-bottom-right",

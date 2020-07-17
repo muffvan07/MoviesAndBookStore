@@ -4,6 +4,7 @@ import { Subscription } from "rxjs";
 import { AuthenticationService } from "../../_services/auth.service";
 import { UserService } from "../../_services/user.service";
 import { first } from "rxjs/operators";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "app-customers",
@@ -17,7 +18,8 @@ export class CustomersComponent implements OnInit {
 
   constructor(
     private authenticationService: AuthenticationService,
-    private userService: UserService
+    private userService: UserService,
+    private spinner: NgxSpinnerService
   ) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
       (user) => {
@@ -27,6 +29,10 @@ export class CustomersComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 1000);
     this.loadAllUsers();
   }
 

@@ -12,6 +12,7 @@ import { WishlistService } from "src/app/_services/wishlist.service";
 import { Wishlist } from "src/app/_models/wishlist";
 import { Cart } from "src/app/_models/cart";
 import { ToastrService } from "ngx-toastr";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "app-catalog-details",
@@ -34,13 +35,20 @@ export class CatalogDetailsComponent implements OnInit {
     private config: NgbRatingConfig,
     private cartService: CartService,
     private wishlistService: WishlistService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService
   ) {
     config.max = 5;
     config.readonly = true;
   }
 
   ngOnInit() {
+    this.spinner.show();
+    setTimeout(() => {
+      /** spinner ends after 5 seconds */
+      this.spinner.hide();
+    }, 1000);
+
     this.wishlistItem = this.wishlistService.getItems();
     this.cartItem = this.cartService.getItems();
 
