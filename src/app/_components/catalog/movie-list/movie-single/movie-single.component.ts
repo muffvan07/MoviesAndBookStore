@@ -51,6 +51,7 @@ export class MovieSingleComponent implements OnInit {
           amount: item.amount,
           image: item.image,
           quantity: 1,
+          rating: item.rating,
           description: item.description,
           writer_director: item.director,
           type: item.type,

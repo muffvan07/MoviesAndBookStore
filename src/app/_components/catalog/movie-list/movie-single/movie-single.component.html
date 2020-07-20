@@ -1,43 +1,35 @@
 <div class="card-group">
-  <div class="card mb-3" style="max-width: 18rem;">
-    <div class="row card-header bg-transparent">
-      <div style="width: 220px;" class="wrap">{{ movie.name }}</div>
-      <div>
-        <span class="badge badge-pill badge-primary float-right">{{
+    <div class="card mb-3 myCard" style="max-width: 18rem;">
+        <div class="row card-header bg-transparent">
+            <div style="width: 220px;" class="wrap">{{ movie.name }}</div>
+            <div>
+                <span class="badge badge-pill badge-primary float-right">{{
           movie.releaseYear
         }}</span>
-      </div>
-    </div>
-    <span class="badge badge-pill badge-success float-right">{{
+            </div>
+        </div>
+        <span class="badge badge-pill badge-success float-right">{{
       movie.genre
     }}</span>
-    <div class="card-body">
-      <img
-        [src]="movie.image"
-        alt="{{ movie.name }}"
-        class="img-responsive"
-        style="
+        <div class="card-body">
+            <img [src]="movie.image" alt="{{ movie.name }}" class="img-responsive" style="
           max-height: 170px;
           display: block;
           margin-left: auto;
           margin-right: auto;
           width: 50%;
-        "
-      />
-    </div>
-    <div class="card-footer bg-transparent">
-      <label class="card-text">
+        " />
+        </div>
+        <div class="card-footer bg-transparent">
+            <label class="card-text">
         Price : {{ movie.amount | currency: "INR":"symbol" }}/- </label
       ><br />
       <label class="card-text">Director : {{ movie.director }}</label
       ><br />
       <label class="card-text">Quantity : {{ movie.quantity }}</label>
-    </div>
-    <div
-      class="btn-group btn-group-toggle row card-footer bg-transparent"
-      data-toggle="buttons"
-    >
-      <label class="btn btn-info" *ngIf="movie.quantity != 0">
+        </div>
+        <div class="btn-group btn-group-toggle row card-footer bg-transparent" data-toggle="buttons">
+            <label class="btn btn-info" *ngIf="movie.quantity != 0">
         <input
           type="radio"
           name="options"
@@ -47,7 +39,7 @@
         />
         <fa-icon [icon]="['fas', 'shopping-cart']"></fa-icon> Add to Cart
       </label>
-      <label class="btn btn-danger" *ngIf="movie.quantity == 0">
+            <label class="btn btn-danger" *ngIf="movie.quantity == 0">
         <input
           type="radio"
           name="options"
@@ -57,7 +49,7 @@
         />
         Sold Out
       </label>
-      <label class="btn btn-primary">
+            <label class="btn btn-primary">
         <input
           type="radio"
           name="options"
@@ -67,7 +59,7 @@
         />
         <fa-icon [icon]="['fas', 'info']"></fa-icon> Details
       </label>
-      <label class="btn btn-warning">
+            <label class="btn btn-warning">
         <input
           type="radio"
           name="options"
@@ -77,6 +69,6 @@
         />
         <fa-icon [icon]="['fas', 'star']"></fa-icon>
       </label>
+        </div>
     </div>
-  </div>
 </div>

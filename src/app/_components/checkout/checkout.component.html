@@ -1,131 +1,88 @@
 <!--Main layout-->
 <div class="row justify-content-between">
-  <div>
-    <h3><fa-icon [icon]="['fas', 'shopping-cart']"></fa-icon> Checkout</h3>
-  </div>
-  <button class="btn btn-primary" routerLink="/catalog">
-    <fa-icon [icon]="['fas', 'arrow-left']"> </fa-icon> Continue Shopping
-  </button>
+    <div>
+        <h3>
+            <fa-icon [icon]="['fas', 'shopping-cart']"></fa-icon> Checkout</h3>
+    </div>
+    <div>
+        <button class="btn btn-primary" routerLink="/catalog">
+      <fa-icon [icon]="['fas', 'arrow-left']"> </fa-icon> Continue Shopping
+    </button>
+        <button class="btn btn-success" routerLink="/cart">
+      <fa-icon [icon]="['fas', 'shopping-cart']"> </fa-icon> Go to Cart
+    </button>
+    </div>
 </div>
 
 <hr />
 <div class="container wow fadeIn">
-  <div class="row">
-    <div class="col-md-8 mb-4">
-      <div class="card">
-        <form
-          class="card-body"
-          [formGroup]="UserProfileForm"
-          (ngSubmit)="onSubmit(UserProfileForm.value)"
-        >
-          <div class="row">
-            <div class="col-md-12 mb-2">
-              <div class="md-form">
-                <input
-                  type="text"
-                  formControlName="Name"
-                  class="form-control"
-                />
-                <label for="fullName" class="">Full name</label>
-              </div>
-            </div>
-          </div>
+    <div class="row">
+        <div class="col-md-8 mb-4">
+            <div class="card">
+                <form class="card-body" [formGroup]="UserProfileForm" (ngSubmit)="onSubmit(UserProfileForm.value)">
+                    <div class="row">
+                        <div class="col-md-12 mb-2">
+                            <div class="md-form">
+                                <input type="text" formControlName="Name" class="form-control" />
+                                <label for="fullName" class="">Full name</label>
+                            </div>
+                        </div>
+                    </div>
 
-          <div class="md-form input-group pl-0 mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">@</span>
-            </div>
-            <input
-              type="text"
-              class="form-control py-0"
-              placeholder="Username"
-              aria-describedby="basic-addon1"
-              formControlName="Username"
-            />
-          </div>
+                    <div class="md-form input-group pl-0 mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">@</span>
+                        </div>
+                        <input type="text" class="form-control py-0" placeholder="Username" aria-describedby="basic-addon1" formControlName="Username" />
+                    </div>
 
-          <hr />
+                    <hr />
 
-          <div class="mb-2">
-            <input
-              type="text"
-              formControlName="Email"
-              class="form-control"
-              placeholder="youremail@example.com"
-            />
-            <label for="email" class="">Email</label>
-          </div>
+                    <div class="mb-2">
+                        <input type="text" formControlName="Email" class="form-control" placeholder="youremail@example.com" />
+                        <label for="email" class="">Email</label>
+                    </div>
 
-          <div class="mb-2">
-            <input
-              type="text"
-              formControlName="Address"
-              class="form-control"
-              placeholder="1234 Main St"
-            />
-            <label for="address" class="">Address</label>
-          </div>
+                    <div class="mb-2">
+                        <input type="text" formControlName="Address" class="form-control" placeholder="1234 Main St" />
+                        <label for="address" class="">Address</label>
+                    </div>
 
-          <hr />
+                    <hr />
 
-          <div class="row">
-            <div class="col-lg-4 col-md-12 mb-4">
-              <label for="country">Country</label>
-              <input
-                type="text"
-                class="form-control"
-                formControlName="Country"
-                placeholder="Country"
-                required
-              />
-              <div class="invalid-feedback">
-                Please select a valid country.
-              </div>
-            </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-12 mb-4">
+                            <label for="country">Country</label>
+                            <input type="text" class="form-control" formControlName="Country" placeholder="Country" required />
+                            <div class="invalid-feedback">
+                                Please select a valid country.
+                            </div>
+                        </div>
 
-            <div class="col-lg-4 col-md-6 mb-4">
-              <label for="state">State</label>
-              <input
-                type="text"
-                class="form-control"
-                formControlName="State"
-                placeholder="State"
-                required
-              />
-              <div class="invalid-feedback">
-                Please provide a valid state.
-              </div>
-            </div>
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <label for="state">State</label>
+                            <input type="text" class="form-control" formControlName="State" placeholder="State" required />
+                            <div class="invalid-feedback">
+                                Please provide a valid state.
+                            </div>
+                        </div>
 
-            <div class="col-lg-4 col-md-6 mb-4">
-              <label for="zip">Zip</label>
-              <input
-                type="text"
-                class="form-control"
-                formControlName="Zipcode"
-                placeholder="Zip"
-                required
-              />
-              <div class="invalid-feedback">
-                Zip code required.
-              </div>
-            </div>
-          </div>
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <label for="zip">Zip</label>
+                            <input type="text" class="form-control" formControlName="Zipcode" placeholder="Zip" required />
+                            <div class="invalid-feedback">
+                                Zip code required.
+                            </div>
+                        </div>
+                    </div>
 
-          <hr />
+                    <hr />
 
-          <div class="row">
-            <div class="col-md-12 mb-3">
-              <label for="cc-name">Enter UPI Id</label>
-              <input
-                type="text"
-                class="form-control"
-                formControlName="UpiId"
-                placeholder="Enter UPI Id"
-                required
-              />
-              <small class="text-muted"
-                >Upi id should be connected to your bank account</small
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label for="cc-name">Enter UPI Id</label>
+                            <input type="text" class="form-control" formControlName="UpiId" placeholder="Enter UPI Id" required />
+                            <small class="text-muted">Upi id should be connected to your bank account</small
               >
               <div class="invalid-feedback">
                 Name on card is required
@@ -164,28 +121,28 @@
           <div class="col-md-8 text-left">
             <h6 class="my-0">{{ item.name }} ({{ item.quantity }})</h6>
             <small class="text-muted">{{ item.type }}</small>
-          </div>
-          <span class="text-muted">{{
+                        </div>
+                        <span class="text-muted">{{
             item.amount | currency: "INR":"symbol"
           }}</span>
-        </li>
+                        </li>
 
-        <li class="list-group-item d-flex justify-content-between">
-          <span>Shipping</span>
-          <strong>{{ shipping | currency: "INR":"symbol" }}</strong>
-        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Shipping</span>
+                            <strong>{{ shipping | currency: "INR":"symbol" }}</strong>
+                        </li>
 
-        <li class="list-group-item d-flex justify-content-between">
-          <span>Total (INR)</span>
-          <strong>{{ cartTotal + shipping | currency: "INR":"symbol" }}</strong>
-        </li>
-      </ul>
-      <!-- Cart -->
-    </div>
-  </div>
-</div>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Total (INR)</span>
+                            <strong>{{ cartTotal + shipping | currency: "INR":"symbol" }}</strong>
+                        </li>
+                        </ul>
+                        <!-- Cart -->
+                    </div>
+            </div>
+        </div>
 
-<!-- <div
+        <!-- <div
   class="modal fade"
   id="exampleModalCenter"
   tabindex="-1"

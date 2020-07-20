@@ -58,6 +58,9 @@ import { CheckoutComponent } from "./_components/checkout/checkout.component";
 import { CustomerService } from "./_services/customer.service";
 import { OtpVerificationComponent } from "./_components/otp-verification/otp-verification.component";
 
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatTooltipModule } from "@angular/material/tooltip";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -89,6 +92,8 @@ import { OtpVerificationComponent } from "./_components/otp-verification/otp-ver
     NgOtpInputModule,
     BrowserAnimationsModule,
     NgxSpinnerModule,
+    MatToolbarModule,
+    MatTooltipModule,
     ToastrModule.forRoot({
       timeOut: 1000,
       positionClass: "toast-bottom-right",

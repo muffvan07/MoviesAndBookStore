@@ -32,14 +32,11 @@ export class WishlistComponent implements OnInit {
   ngOnInit(): void {
     this.wishlistItems = JSON.parse(localStorage.getItem("item"));
     this.cartItem = this.cartService.getItems();
-    if (JSON.parse(localStorage.getItem("item")) == null) {
-      this.nullCheck = true;
-      this.clearWishlist();
-    }
   }
 
   ngDoCheck() {
-    if (JSON.parse(localStorage.getItem("item")) == null) {
+    console.log(localStorage.getItem("item"));
+    if (JSON.parse(localStorage.getItem("item")).length === 0) {
       this.nullCheck = true;
     }
     this.wishlistItems = JSON.parse(localStorage.getItem("item"));

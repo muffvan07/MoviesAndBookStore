@@ -1,17 +1,16 @@
 <div class="row justify-content-between">
     <div>
         <h3>
-            <fa-icon [icon]="['fas', 'shopping-cart']"></fa-icon> My Cart
-        </h3>
+            <fa-icon [icon]="['fas', 'shopping-cart']"></fa-icon> My Cart</h3>
     </div>
     <div>
-        <button class="btn btn-primary" routerLink="/catalog">
+        <button class="btn btn-primary" routerLink="/catalog" matTooltipPosition="above" mat-raised-button #tooltip="matTooltip" matTooltip="Back to Catalog" matTooltipClass="myTooltip">
       <fa-icon [icon]="['fas', 'arrow-left']"> </fa-icon> Continue Shopping
     </button>
         <button *ngIf="cartItems.length === 0" class="btn btn-danger" disabled>
       <fa-icon [icon]="['fas', 'trash']"> </fa-icon> Clear Cart
     </button>
-        <button *ngIf="cartItems.length > 0" class="btn btn-danger" (click)="clearCart()">
+        <button *ngIf="cartItems.length > 0" class="btn btn-danger" (click)="clearCart()" [matTooltipPosition]="position.value" mat-raised-button #tooltip="matTooltip" matTooltip="Clear all Items" matTooltipClass="myTooltip-red">
       <fa-icon [icon]="['fas', 'trash']"> </fa-icon> Clear Cart
     </button>
     </div>
@@ -38,31 +37,26 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody @list>
+                    <tbody [@cardAnimation]="cartItems.length">
                         <tr *ngFor="
                 let item of cartItems
                   | slice
                     : (page - 1) * pageSize
                     : (page - 1) * pageSize + pageSize;
                 let i = index
-              " [@items]>
+              ">
                             <td>
-                                <img [src]="item.image" style="
-                    max-height: 170px;
-                    display: block;
-                    margin-left: auto;
-                    margin-right: auto;
-                  " />
+                                <img [src]="item.image" class="myImage" />
                             </td>
                             <td class="text-left">
                                 <h5>{{ item.name }}</h5>
-                                <br /> {{ item.type == "Book" ? "Writer" : "Director" }} : {{ item.writer_director }} <br /> Release Year : {{ item.releaseYear }} <br /> {{ item.type == "Book" ? "Good Read Rating" : "Rating" }} :
+                                <br /> {{ item.type == "Book " ? "Writer " : "Director " }} : {{ item.writer_director }} <br /> Release Year : {{ item.releaseYear }} <br /> {{ item.type == "Book " ? "Good Read Rating " : "Rating " }} :
                                 <ngb-rating [rate]="item.rating"></ngb-rating>
                             </td>
 
                             <td>
                                 <div *ngIf="item.quantity != 0">
-                                    <input type="number" class="form-control col-md-4" style="margin: auto;" [(ngModel)]="item.quantity" />
+                                    <input type="number " class="form-control col-md-4" style="margin: auto;" [(ngModel)]="item.quantity" />
                                 </div>
                                 <div *ngIf="item.quantity == 0">
                                     <span class="badge badge-pill badge-danger">Sold Out</span>
@@ -75,7 +69,7 @@
                                 {{ item.quantity * item.amount | currency: "INR":"symbol" }}
                             </td>
                             <td class="text-center">
-                                <button class="btn btn-danger box" @items (click)="onDelete(i)">
+                                <button class="btn btn-danger box" (click)="onDelete(i)" [matTooltipPosition]="position.value" mat-raised-button #tooltip="matTooltip" matTooltip="Delete from Cart " matTooltipClass="myTooltip-red ">
                   <fa-icon [icon]="['fas', 'trash']"></fa-icon>
                 </button>
                             </td>
@@ -121,18 +115,27 @@
         <div class="col mb-2">
             <div class="row">
                 <div class="col-sm-12 col-md-12 text-right">
-                    <button class="btn btn-success text-uppercase" routerLink="/cart/checkout">
-            Checkout <fa-icon [icon]="['fas', 'caret-right']"></fa-icon>
-          </button><br>
+                    <button class="btn btn-success text-uppercase" routerLink="/cart/checkout" [matTooltipPosition]="position.value" mat-raised-button #tooltip="matTooltip" matTooltip="Proceed to Checkout Form " matTooltipClass="myTooltip ">
+            Checkout <fa-icon [icon]="['fas', 'caret-right']"></fa-icon></button
+          ><br />
 
-                    <label class="control-label">If Cart total greater than 2000/- Shipping Free.</label>
-                </div>
-            </div>
+          <label class="control-label"
+            >If Cart total greater than 2000/- Shipping Free.</label
+          >
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
-<ngb-pagination [collectionSize]="cartItems.length" [(page)]="page" [pageSize]="pageSize" [boundaryLinks]="true" aria-label="Default pagination" class="d-flex justify-content-center"></ngb-pagination>
+<ngb-pagination
+  [collectionSize]="cartItems.length"
+  [(page)]="page"
+  [pageSize]="pageSize"
+  [boundaryLinks]="true"
+  aria-label="Default pagination "
+  class="d-flex justify-content-center"
+></ngb-pagination>
 
 <br />
 <br />

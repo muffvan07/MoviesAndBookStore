@@ -12,36 +12,43 @@ import {
   query,
   stagger,
   animateChild,
+  keyframes,
 } from "@angular/animations";
+import { TooltipPosition } from "@angular/material/tooltip";
+import { FormControl } from "@angular/forms";
 
 @Component({
   selector: "app-cart",
   templateUrl: "./cart.component.html",
   styleUrls: ["./cart.component.css"],
   animations: [
-    trigger("items", [
-      transition(":enter", [
-        style({ transform: "scale(0.5)", opacity: 0 }), // initial
-        animate(
-          "1s cubic-bezier(.8, -0.6, 0.2, 1.5)",
-          style({ transform: "scale(1)", opacity: 1 })
-        ), // final
-      ]),
-      transition(":leave", [
-        style({ transform: "scale(1)", opacity: 1, height: "*" }),
-        animate(
-          "1s cubic-bezier(.8, -0.6, 0.2, 1.5)",
-          style({
-            transform: "scale(0.5)",
-            opacity: 0,
-            height: "0px",
-            margin: "0px",
-          })
+    // Trigger animation cards array
+    trigger("cardAnimation", [
+      // Transition from any state to any state
+      transition("* => *", [
+        // Initially the all cards are not visible
+        query(":enter", style({ opacity: 0 }), { optional: true }),
+
+        // Each card will appear sequentially with the delay of 300ms
+        query(
+          ":enter",
+          stagger("300ms", [
+            animate(
+              ".5s ease-in",
+              keyframes([
+                style({ opacity: 0, transform: "translateY(-50%)", offset: 0 }),
+                style({
+                  opacity: 0.5,
+                  transform: "translateY(-10px) scale(1.1)",
+                  offset: 0.3,
+                }),
+                style({ opacity: 1, transform: "translateY(0)", offset: 1 }),
+              ])
+            ),
+          ]),
+          { optional: true }
         ),
       ]),
-    ]),
-    trigger("list", [
-      transition(":enter", [query("@items", stagger(300, animateChild()))]),
     ]),
   ],
 })
@@ -52,6 +59,8 @@ export class CartComponent implements OnInit {
   cartTotal = 0;
   quantity: number;
   shipping: number;
+  positionOptions: TooltipPosition[] = ["below", "above", "left", "right"];
+  position = new FormControl(this.positionOptions[3]);
 
   constructor(
     private cartService: CartService,
@@ -64,6 +73,7 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
     this.cartItems = this.cartService.getItems();
+    console.log(this.cartItems);
   }
 
   ngDoCheck() {

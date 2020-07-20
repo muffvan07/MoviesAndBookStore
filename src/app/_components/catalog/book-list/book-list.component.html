@@ -4,23 +4,12 @@
   </div>
 </div> -->
 <hr />
-<div class="row">
-  <app-book-single
-    *ngFor="
+<div class="row" [@cardAnimation]="books.length">
+    <app-book-single *ngFor="
       let bookSingle of books
         | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize;
       let i = index
-    "
-    [book]="bookSingle"
-    [index]="i"
-  >
-  </app-book-single>
+    " [book]="bookSingle" [index]="i">
+    </app-book-single>
 </div>
-<ngb-pagination
-  [collectionSize]="books.length"
-  [(page)]="page"
-  [pageSize]="pageSize"
-  [boundaryLinks]="true"
-  aria-label="Default pagination"
-  class="d-flex justify-content-center"
-></ngb-pagination>
+<ngb-pagination [collectionSize]="books.length" [(page)]="page" [pageSize]="pageSize" [boundaryLinks]="true" aria-label="Default pagination" class="d-flex justify-content-center"></ngb-pagination>

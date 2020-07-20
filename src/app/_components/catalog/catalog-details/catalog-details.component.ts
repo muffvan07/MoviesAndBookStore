@@ -45,7 +45,6 @@ export class CatalogDetailsComponent implements OnInit {
   ngOnInit() {
     this.spinner.show();
     setTimeout(() => {
-      /** spinner ends after 5 seconds */
       this.spinner.hide();
     }, 1000);
 

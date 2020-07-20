@@ -23,7 +23,7 @@ export class CheckoutComponent implements OnInit {
   cartItems: Cart[];
   cartTotal = 0;
   quantity: number;
-  shipping = 100;
+  shipping: number;
   otp: string;
   showOtpComponent = true;
   @ViewChild("ngOtpInput") ngOtpInput: any;
@@ -72,6 +72,11 @@ export class CheckoutComponent implements OnInit {
     this.cartTotal = 0;
     this.cartItems.forEach((item) => {
       this.cartTotal += item.quantity * item.amount;
+      if (this.cartTotal > 2000) {
+        this.shipping = 0;
+      } else {
+        this.shipping = 100;
+      }
     });
   }
 
