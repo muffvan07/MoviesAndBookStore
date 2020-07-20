@@ -38,14 +38,14 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody @list>
                         <tr *ngFor="
                 let item of cartItems
                   | slice
                     : (page - 1) * pageSize
                     : (page - 1) * pageSize + pageSize;
                 let i = index
-              ">
+              " [@items]>
                             <td>
                                 <img [src]="item.image" style="
                     max-height: 170px;
@@ -75,7 +75,7 @@
                                 {{ item.quantity * item.amount | currency: "INR":"symbol" }}
                             </td>
                             <td class="text-center">
-                                <button class="btn btn-danger" (click)="onDelete(i)">
+                                <button class="btn btn-danger box" @items (click)="onDelete(i)">
                   <fa-icon [icon]="['fas', 'trash']"></fa-icon>
                 </button>
                             </td>

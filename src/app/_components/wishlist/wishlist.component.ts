@@ -17,6 +17,7 @@ export class WishlistComponent implements OnInit {
   cartItem: Cart[];
   page = 1;
   pageSize = 4;
+  nullCheck: boolean;
 
   constructor(
     private wishlistService: WishlistService,
@@ -31,6 +32,17 @@ export class WishlistComponent implements OnInit {
   ngOnInit(): void {
     this.wishlistItems = JSON.parse(localStorage.getItem("item"));
     this.cartItem = this.cartService.getItems();
+    if (JSON.parse(localStorage.getItem("item")) == null) {
+      this.nullCheck = true;
+      this.clearWishlist();
+    }
+  }
+
+  ngDoCheck() {
+    if (JSON.parse(localStorage.getItem("item")) == null) {
+      this.nullCheck = true;
+    }
+    this.wishlistItems = JSON.parse(localStorage.getItem("item"));
   }
 
   addToCart(item) {
@@ -70,11 +82,14 @@ export class WishlistComponent implements OnInit {
   }
 
   onDelete(i) {
-    this.wishlistService.deleteProduct();
+    this.wishlistItems.splice(i, 1);
+    localStorage.setItem("item", JSON.stringify(this.wishlistItems));
   }
 
   clearWishlist() {
     this.wishlistItems = this.wishlistService.clearWishlist();
-    this.toastr.info("Wishlist Cleared!");
+    if (!this.nullCheck) {
+      this.toastr.info("Wishlist Cleared!");
+    }
   }
 }

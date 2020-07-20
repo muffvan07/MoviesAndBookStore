@@ -24,9 +24,8 @@ export class WishlistService {
     return this.items;
   }
 
-  deleteProduct() {
-    const index = this.items.indexOf("item");
-    this.items.splice(index, 1);
+  deleteProduct(i) {
+    this.items.splice(i, 1);
     localStorage.setItem("item", JSON.stringify(this.items));
   }
 
